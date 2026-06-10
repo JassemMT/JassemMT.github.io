@@ -115,6 +115,21 @@ function App() {
   const [test, setTest] = useState(null);
   const [showExport, setShowExport] = useState(false);
   const [toast, setToast] = useState(null);
+  const [dirHandle, setDirHandle] = useState(null);
+
+  const connectFolder = async () => {
+    if (!window.showDirectoryPicker) {
+      flash("Not supported in this browser (use Chrome/Edge)");
+      return;
+    }
+    try {
+      const handle = await window.showDirectoryPicker({ mode: "readwrite" });
+      setDirHandle(handle);
+      flash("Folder connected!");
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   /* filters */
   const [q, setQ] = useState("");
@@ -245,7 +260,20 @@ function App() {
 
   /* ---- export ---- */
   const code = useMemo(() => serialize(state), [state]);
-  const doDownload = () => {
+  const doDownload = async () => {
+    if (dirHandle) {
+      try {
+        const fileHandle = await dirHandle.getFileHandle("videos.js", { create: true });
+        const writable = await fileHandle.createWritable();
+        await writable.write(code);
+        await writable.close();
+        flash("videos.js saved directly to folder!");
+        return;
+      } catch (e) {
+        console.error(e);
+        flash("Save failed. Try downloading instead.");
+      }
+    }
     const blob = new Blob([code], { type: "text/javascript" });
     const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "videos.js";
     document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
@@ -276,6 +304,9 @@ function App() {
             <span className={cls("dot", dirty && "dot--dirty")} />
             {dirty ? "Unsaved vs file · draft autosaved" : "In sync with file"}
           </div>
+          <button className="btn btn--ghost btn--sm" onClick={connectFolder} style={{ color: dirHandle ? "var(--ok)" : "inherit" }}>
+            {dirHandle ? "Folder Connected" : "Connect Folder"}
+          </button>
           <button className="btn btn--ghost btn--sm" onClick={revert} disabled={!dirty && !hasDraft}>Revert</button>
           <button className="btn btn--primary btn--sm" onClick={() => setShowExport(true)}>{Ic.export} Export videos.js</button>
         </div>
@@ -373,6 +404,8 @@ function App() {
           onDelete={() => removeVideo(editing.draft.file)}
           onDup={() => { duplicate(editing.draft.file); setEditing(null); }}
           onSave={commit}
+          dirHandle={dirHandle}
+          flash={flash}
         />
       )}
 

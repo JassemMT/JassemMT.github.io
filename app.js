@@ -18,6 +18,16 @@
   const posterPath = v => `videos/${v.cat}/${v.file}.jpg`;
   const isImagePath = p => /\.(jpe?g|png|webp|gif|avif|svg)$/i.test(p || "");
 
+  /* ---- Bunny Stream extractors ---- */
+  const BUNNY_CDN = "vz-0cb7ad4b-add.b-cdn.net";
+  const getBunnyId = (url) => {
+    if (!url) return null;
+    const parts = url.split("?")[0].split("/");
+    return parts[parts.length - 1];
+  };
+  const bunnyPreview = (v) => v.bunny ? `https://${BUNNY_CDN}/${getBunnyId(v.bunny)}/preview.webp` : null;
+  const bunnyThumb = (v) => v.bunny ? `https://${BUNNY_CDN}/${getBunnyId(v.bunny)}/thumbnail.jpg` : null;
+
   /* ---- per-item media: an entry is an IMAGE/GIF when `src` is an image file,
          otherwise it's a VIDEO (custom `src`, else the default <file>.mp4). ---- */
   const isImageItem = v => !!(v && v.src) && isImagePath(v.src);
@@ -109,15 +119,32 @@
       img.className = "poster";
       img.loading = "lazy";
       img.alt = v.title;
-      img.onload = () => media.insertBefore(img, ph.nextSibling);
+      media.insertBefore(img, ph.nextSibling);
+      
       if (isImg) {
         // Image/GIF item: show the file itself; no first-frame fallback.
-        img.onerror = () => {};
+        img.onerror = () => { img.style.display = "none"; };
         img.src = mediaSrc(v);
       } else {
-        // Video item: try the poster .jpg; if it's missing, decode the
-        // video's first frame and use that as the thumbnail instead.
-        img.onerror = () => captureFirstFrame(mediaSrc(v), (url) => { img.onerror = null; img.src = url; });
+        // Video item: try the local poster .jpg; if missing, try Bunny thumbnail,
+        // then decode the video's first frame.
+        img.onerror = () => {
+          const bThumb = bunnyThumb(v);
+          if (bThumb) {
+            img.onerror = () => {
+              img.style.display = "none";
+              captureFirstFrame(mediaSrc(v), (url) => { 
+                img.onerror = null; img.style.display = ""; img.src = url; 
+              });
+            };
+            img.src = bThumb;
+          } else {
+            img.style.display = "none";
+            captureFirstFrame(mediaSrc(v), (url) => { 
+              img.onerror = null; img.style.display = ""; img.src = url; 
+            });
+          }
+        };
         img.src = posterPath(v);
       }
     }
@@ -129,16 +156,28 @@
     // the full video with sound in the lightbox.
     if (READY && isAutoplayItem(v)) {
       media.appendChild(el("span", "vcard__live", "● LIVE"));
-      const avid = el("video", "vid");
-      avid.muted = true; avid.loop = true; avid.playsInline = true; avid.preload = "auto";
-      avid.autoplay = true; avid.setAttribute("muted", "");
-      avid.poster = posterPath(v);
-      avid.addEventListener("playing", () => avid.classList.add("is-playing"));
-      avid.addEventListener("error", () => { avid.remove(); });
-      avid.src = mediaSrc(v);
-      media.appendChild(avid);
-      const p = avid.play(); if (p) p.catch(() => {});
-      if (autoplayObserver) autoplayObserver.observe(avid);
+      const bPrev = bunnyPreview(v);
+      
+      if (bPrev) {
+        // Bunny Stream animated WEBP (no need for a video element or IntersectionObserver!)
+        const anim = new Image();
+        anim.className = "vid is-playing";
+        anim.alt = "Live preview";
+        anim.src = bPrev;
+        media.appendChild(anim);
+      } else {
+        // Fallback to local .mp4
+        const avid = el("video", "vid");
+        avid.muted = true; avid.loop = true; avid.playsInline = true; avid.preload = "auto";
+        avid.autoplay = true; avid.setAttribute("muted", "");
+        avid.poster = posterPath(v);
+        avid.addEventListener("playing", () => avid.classList.add("is-playing"));
+        avid.addEventListener("error", () => { avid.remove(); });
+        avid.src = mediaSrc(v);
+        media.appendChild(avid);
+        const p = avid.play(); if (p) p.catch(() => {});
+        if (autoplayObserver) autoplayObserver.observe(avid);
+      }
     }
 
     // text strip (vertical cards keep a little room for it — see CSS)
@@ -150,21 +189,35 @@
     // hover preview (desktop only, VIDEO items only) — attempts the .mp4, stays on poster if missing
     // Autoplay items already loop on their own, so they skip the hover handler.
     if (supportsHover && READY && !isImg && !isAutoplayItem(v)) {
-      let vid = null;
+      const bPrev = bunnyPreview(v);
+      let previewEl = null;
       card.addEventListener("mouseenter", () => {
-        if (!vid) {
-          vid = el("video", "vid");
-          vid.muted = true; vid.loop = true; vid.playsInline = true; vid.preload = "auto";
-          vid.src = mediaSrc(v);
-          vid.addEventListener("playing", () => vid.classList.add("is-playing"));
-          vid.addEventListener("error", () => { vid && vid.remove(); vid = null; });
-          media.appendChild(vid);
+        if (!previewEl) {
+          if (bPrev) {
+            previewEl = new Image();
+            previewEl.className = "vid";
+            previewEl.alt = "Video preview";
+            previewEl.onload = () => previewEl.classList.add("is-playing");
+            previewEl.src = bPrev;
+            media.appendChild(previewEl);
+          } else {
+            previewEl = el("video", "vid");
+            previewEl.muted = true; previewEl.loop = true; previewEl.playsInline = true; previewEl.preload = "auto";
+            previewEl.src = mediaSrc(v);
+            previewEl.addEventListener("playing", () => previewEl.classList.add("is-playing"));
+            previewEl.addEventListener("error", () => { previewEl && previewEl.remove(); previewEl = null; });
+            media.appendChild(previewEl);
+          }
+        } else {
+          previewEl.classList.add("is-playing");
         }
-        const p = vid && vid.play();
-        if (p) p.catch(() => {});
+        if (!bPrev) { const p = previewEl && previewEl.play(); if (p) p.catch(() => {}); }
       });
       card.addEventListener("mouseleave", () => {
-        if (vid) { vid.pause(); vid.classList.remove("is-playing"); }
+        if (previewEl) { 
+          previewEl.classList.remove("is-playing");
+          if (!bPrev) previewEl.pause(); 
+        }
       });
     }
 

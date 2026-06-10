@@ -110,15 +110,31 @@ function MediaTest({ url, onClose }) {
 /* =====================================================================
    THUMBNAIL DROPZONE
    ===================================================================== */
-function DropZone({ v, override, onFile }) {
+function DropZone({ v, override, onFile, dirHandle, flash }) {
   const [over, setOver] = useState(false);
   const inputRef = useRef(null);
   const variant = v.cat === "showreel" ? "h" : "v";
   const ext = (v.src && isImageSrc(v.src)) ? v.src : `${v.file}.jpg`;
   const targetPath = `videos/${v.cat}/${ext}`;
 
-  const handle = (file) => {
+  const handle = async (file) => {
     if (!file || !file.type.startsWith("image/")) return;
+
+    if (dirHandle) {
+      try {
+        const videosDir = await dirHandle.getDirectoryHandle("videos", { create: true });
+        const catDir = await videosDir.getDirectoryHandle(v.cat, { create: true });
+        const fileHandle = await catDir.getFileHandle(ext, { create: true });
+        const writable = await fileHandle.createWritable();
+        await writable.write(file);
+        await writable.close();
+        if (flash) flash(`Saved to ${targetPath}`);
+      } catch (e) {
+        console.error("Failed to save image", e);
+        if (flash) flash("Error saving. Try reconnecting folder.");
+      }
+    }
+
     const reader = new FileReader();
     reader.onload = () => onFile(reader.result);
     reader.readAsDataURL(file);
@@ -143,7 +159,12 @@ function DropZone({ v, override, onFile }) {
         <input ref={inputRef} type="file" accept="image/*" hidden onChange={e => handle(e.target.files[0])} />
       </div>
       <div className="dz__path" title="Where to place the file">{targetPath}</div>
-      <div className="hint">The site loads the poster from this exact path. Drop your image, click <b>Save as</b>, then move the downloaded file into that folder.</div>
+      <div className="hint">
+        {dirHandle ? 
+          <span style={{color: "var(--ok)"}}><b>Folder connected!</b> The image will be saved automatically when you drop it.</span> : 
+          <React.Fragment>The site loads the poster from this exact path. Drop your image, click <b>Save as</b>, then move the downloaded file into that folder.</React.Fragment>
+        }
+      </div>
     </div>
   );
 }
@@ -157,7 +178,7 @@ function downloadThumb(dataUrl, name) {
 /* =====================================================================
    VIDEO EDITOR (drawer)
    ===================================================================== */
-function VideoEditor({ draft, clients, allFiles, thumb, onThumb, onChange, onTest, onClose, onDelete, onDup, onSave }) {
+function VideoEditor({ draft, clients, allFiles, thumb, onThumb, onChange, onTest, onClose, onDelete, onDup, onSave, dirHandle, flash }) {
   const v = draft;
   const isImage = !!(v.src && isImageSrc(v.src));
   const fileTaken = allFiles.some(f => f.file === v.file && f.__orig !== v.__orig);
@@ -238,7 +259,7 @@ function VideoEditor({ draft, clients, allFiles, thumb, onThumb, onChange, onTes
             </div>
           )}
 
-          <DropZone v={v} override={thumb} onFile={onThumb} />
+          <DropZone v={v} override={thumb} onFile={onThumb} dirHandle={dirHandle} flash={flash} />
         </div>
 
         <div className="drawer__foot">

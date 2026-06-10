@@ -12,33 +12,32 @@
    ============================================================================ */
 
 const VIDEOS = [
-  { cat: "entertainment", file: "ent_1", title: "Brand teaser — fast-cut hook", client: "VRSS", instagram: "https://www.instagram.com/vrss_fightgear/" },
-  { cat: "entertainment", file: "ent_2", title: "Highlight reel — match night", client: "VRSS", instagram: "", autoplay: true },
-  { cat: "entertainment", file: "ent_3", title: "Behind the scenes", client: "Studio Form", instagram: "" },
-  { cat: "entertainment", file: "ent_4", title: "Trend remix (GIF)", client: "Creator", instagram: "", src: "ent_4.gif" },
-  { cat: "educational", file: "edu_1", title: "How-to short — technique #3", client: "VRSS", instagram: "" },
-  { cat: "educational", file: "edu_2", title: "Explainer — gear breakdown", client: "VRSS", instagram: "" },
-  { cat: "educational", file: "edu_3", title: "Tutorial — 3 quick tips", client: "Studio Form", instagram: "" },
-  { cat: "educational", file: "edu_4", title: "Stat card (image)", client: "Creator", instagram: "", src: "edu_4.png" },
-  { cat: "corporate", file: "cor_1", title: "Product launch film", client: "VRSS", instagram: "" },
-  { cat: "corporate", file: "cor_2", title: "Founder story", client: "VRSS", instagram: "" },
-  { cat: "corporate", file: "cor_3", title: "Event recap", client: "Studio Form", instagram: "" },
-  { cat: "showreel", file: "reel_main", title: "Showreel 2026", client: "Jassem", instagram: "" },
-  { cat: "showreel", file: "vsl_1", title: "Brand VSL — full edit", client: "VRSS", instagram: "" },
+  { cat: "educational", file: "edu_1", title: "VRSS - Highlight clip compilation", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/56661d87-4066-4cab-a968-1681c85ac209", autoplay: true },
+  { cat: "educational", file: "edu_2", title: "VRSS - Podcast trailer", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/2cabf19a-c03c-4e19-9fc7-934d630fb23b", autoplay: true },
+  { cat: "educational", file: "edu_3", title: "VRSS - Product Ad", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/73249e25-6d51-483c-9e3f-f76298420e57", autoplay: true },
+  { cat: "educational", file: "edu_4", title: "Politique", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/1cabd9f9-9ebe-4717-a6f4-a9941a6fea16" },
+  { cat: "educational", file: "edu_5", title: "Canada thrift store", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/e4c96fab-a1d2-4ccd-b352-1b3e27b54351" },
+  { cat: "corporate", file: "edu_6", title: "Interview - ORA outlet", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/387c6fb2-438a-4c2c-9fa2-75a67cfa521d" },
+  { cat: "entertainment", file: "edu_7", title: "Self improvement", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/6b1adf18-b3b9-456c-b3ab-ceb296f65e3a" },
+  { cat: "educational", file: "edu_8", title: "Training montage - Self Improvement ", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/03617199-be09-4c0a-99f1-9c1a4058ae77" },
+  { cat: "educational", file: "edu_9", title: "Old Video Showreel ", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/4b73ef3a-9ea4-4d31-b187-f7d70ed00ca8" },
+  { cat: "corporate", file: "cor_1", title: "SCM - Product Educationnal presentation", client: "SCM", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/abd5fa04-ef8c-402c-bd05-cd378fb3869f" },
+  { cat: "corporate", file: "cor_2", title: "SCM - Educationnal videos", client: "SCM", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/678759d3-642a-4dee-b8b9-77b8e34f616e" },
+  { cat: "corporate", file: "cor_3", title: "SCM - Educational Video 2", client: "SCM", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/8bc0a935-eecd-417f-ae6f-c6c8e3584de5" },
 ];
 
 /* HIGHLIGHTED WORK — bento: 1 big 16:9 + up to 5 verticals (first 2 top-right, next 3 bottom). */
 const FEATURED_LAYOUT = {
-  bigCard: "vsl_1",
-  verticalCards: ["ent_1", "edu_1", "cor_1", "ent_2", "cor_2"],
+  bigCard: "edu_4",
+  verticalCards: ["edu_1", "edu_5", "edu_6", "edu_9"],
 };
 
 /* CASE STUDIES — ordered file ids per section (data-case="<key>" in index.html).
    Tokens may force orientation: "id:h" (horizontal) or "id:v". */
 const CASE_STUDIES = {
-  vrss: ["edu_2", "ent_1", "cor_2"],
-  alex: ["ent_1", "ent_2", "ent_3", "ent_4", "edu_1", "edu_2", "edu_3", "edu_4"],
-  scm: ["vsl_1:h", "ent_4:v", "cor_3"],
+  vrss: ["edu_2", "edu_1", "edu_3"],
+  alex: [],
+  scm: ["cor_1:h", "cor_2", "cor_3"],
 };
 const VRSS_VIDEOS = CASE_STUDIES.vrss; // legacy alias
 
@@ -46,6 +45,6 @@ const VRSS_VIDEOS = CASE_STUDIES.vrss; // legacy alias
 const HERO_MEDIA = "showreel/img_main.png";
 
 /* MEDIA READY — false keeps placeholder mode (no requests for missing local files). */
-const MEDIA_READY = false;
+const MEDIA_READY = true;
 
 window.PORTFOLIO_DATA = { VIDEOS, FEATURED_LAYOUT, CASE_STUDIES, VRSS_VIDEOS, HERO_MEDIA, MEDIA_READY };

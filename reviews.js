@@ -24,27 +24,7 @@
    ============================================================================ */
 
 const REVIEWS = [
-  {
-    quote: "Reliable, fast and genuinely premium. Our shorts finally match the quality of the brand.",
-    name: "Alex Mercer",
-    role: "Founder · VRSS Fightgear",
-    stars: 5,
-    avatar: "" // e.g. "alex.jpg" → reviews/alex.jpg
-  },
-  {
-    quote: "The motion design is on another level. Each edit feels considered — not a template in sight.",
-    name: "Dana Kim",
-    role: "Head of Content · Studio Form",
-    stars: 5,
-    avatar: ""
-  },
-  {
-    quote: "We saw real growth within weeks. Jassem understands pacing, hooks and retention.",
-    name: "Marco Vidal",
-    role: "Creator · 480K followers",
-    stars: 5,
-    avatar: ""
-  },
+
 ];
 
 /* ----------------------------------------------------------------------------
