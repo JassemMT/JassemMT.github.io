@@ -18,14 +18,13 @@
   const posterPath = v => `videos/${v.cat}/${v.file}.jpg`;
   const isImagePath = p => /\.(jpe?g|png|webp|gif|avif|svg)$/i.test(p || "");
 
-  /* ---- Bunny Stream extractors ---- */
   const BUNNY_CDN = "vz-0cb7ad4b-add.b-cdn.net";
   const getBunnyId = (url) => {
     if (!url) return null;
     const parts = url.split("?")[0].split("/");
     return parts[parts.length - 1];
   };
-  const bunnyPreview = (v) => v.bunny ? `https://${BUNNY_CDN}/${getBunnyId(v.bunny)}/preview.webp` : null;
+  const bunnyPreview = (v) => v.bunny ? `https://${BUNNY_CDN}/${getBunnyId(v.bunny)}/play_720p.mp4` : null;
   const bunnyThumb = (v) => v.bunny ? `https://${BUNNY_CDN}/${getBunnyId(v.bunny)}/thumbnail.jpg` : null;
 
   /* ---- per-item media: an entry is an IMAGE/GIF when `src` is an image file,
@@ -158,26 +157,22 @@
       media.appendChild(el("span", "vcard__live", "● LIVE"));
       const bPrev = bunnyPreview(v);
       
-      if (bPrev) {
-        // Bunny Stream animated WEBP (no need for a video element or IntersectionObserver!)
-        const anim = new Image();
-        anim.className = "vid is-playing";
-        anim.alt = "Live preview";
-        anim.src = bPrev;
-        media.appendChild(anim);
-      } else {
-        // Fallback to local .mp4
-        const avid = el("video", "vid");
-        avid.muted = true; avid.loop = true; avid.playsInline = true; avid.preload = "auto";
-        avid.autoplay = true; avid.setAttribute("muted", "");
-        avid.poster = posterPath(v);
-        avid.addEventListener("playing", () => avid.classList.add("is-playing"));
-        avid.addEventListener("error", () => { avid.remove(); });
-        avid.src = mediaSrc(v);
-        media.appendChild(avid);
-        const p = avid.play(); if (p) p.catch(() => {});
-        if (autoplayObserver) autoplayObserver.observe(avid);
-      }
+      const avid = el("video", "vid");
+      avid.muted = true; avid.loop = true; avid.playsInline = true; avid.preload = "auto";
+      avid.autoplay = true; avid.setAttribute("muted", "");
+      avid.poster = posterPath(v);
+      avid.addEventListener("playing", () => avid.classList.add("is-playing"));
+      avid.addEventListener("error", () => {
+        if (bPrev && avid.src.includes("720p")) {
+          avid.src = `https://${BUNNY_CDN}/${getBunnyId(v.bunny)}/play_480p.mp4`;
+        } else {
+          avid.remove();
+        }
+      });
+      avid.src = bPrev || mediaSrc(v);
+      media.appendChild(avid);
+      const p = avid.play(); if (p) p.catch(() => {});
+      if (autoplayObserver) autoplayObserver.observe(avid);
     }
 
     // text strip (vertical cards keep a little room for it — see CSS)
@@ -193,30 +188,27 @@
       let previewEl = null;
       card.addEventListener("mouseenter", () => {
         if (!previewEl) {
-          if (bPrev) {
-            previewEl = new Image();
-            previewEl.className = "vid";
-            previewEl.alt = "Video preview";
-            previewEl.onload = () => previewEl.classList.add("is-playing");
-            previewEl.src = bPrev;
-            media.appendChild(previewEl);
-          } else {
-            previewEl = el("video", "vid");
-            previewEl.muted = true; previewEl.loop = true; previewEl.playsInline = true; previewEl.preload = "auto";
-            previewEl.src = mediaSrc(v);
-            previewEl.addEventListener("playing", () => previewEl.classList.add("is-playing"));
-            previewEl.addEventListener("error", () => { previewEl && previewEl.remove(); previewEl = null; });
-            media.appendChild(previewEl);
-          }
+          previewEl = el("video", "vid");
+          previewEl.muted = true; previewEl.loop = true; previewEl.playsInline = true; previewEl.preload = "auto";
+          previewEl.addEventListener("playing", () => previewEl.classList.add("is-playing"));
+          previewEl.addEventListener("error", () => {
+            if (bPrev && previewEl.src.includes("720p")) {
+              previewEl.src = `https://${BUNNY_CDN}/${getBunnyId(v.bunny)}/play_480p.mp4`;
+            } else {
+              previewEl && previewEl.remove(); previewEl = null;
+            }
+          });
+          previewEl.src = bPrev || mediaSrc(v);
+          media.appendChild(previewEl);
         } else {
           previewEl.classList.add("is-playing");
         }
-        if (!bPrev) { const p = previewEl && previewEl.play(); if (p) p.catch(() => {}); }
+        const p = previewEl && previewEl.play(); if (p) p.catch(() => {});
       });
       card.addEventListener("mouseleave", () => {
         if (previewEl) { 
+          previewEl.pause();
           previewEl.classList.remove("is-playing");
-          if (!bPrev) previewEl.pause(); 
         }
       });
     }

@@ -316,7 +316,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .case__bigstat-label { font-size: .92rem; color: rgba(255,255,255,.82); }
 .case__ig { margin-top: 1.6rem; }
 .ig-ic { width: 18px; height: 18px; fill: currentColor; }
-.case__videos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.case__videos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 /* Case videos are bare 9:16 players — no white meta card under them. */
 .case__videos .vcard { border: none; background: none; }
 .case__videos .vcard__meta { display: none; }
