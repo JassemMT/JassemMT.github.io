@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jassem — Video Editor & Motion Designer</title>
+  <meta name="description" content="Clean, premium edits that grow audiences and convert. Video editor & from-scratch motion designer for brands and creators." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVBAR  (sticky)
+       ============================================================ -->
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a class="nav__brand" href="#top" aria-label="Jassem — home">
+        <span class="nav__mark" aria-hidden="true"></span>
+        Jassem
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#works">Works</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="btn btn--solid nav__cta" href="#contact">Get in touch</a>
+      <button class="nav__burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="hero" id="about">
+      <div class="container hero__grid">
+        <div class="hero__copy reveal">
+          <div class="eyebrow"><span class="dot"></span> Video editor &amp; motion designer</div>
+          <h1 class="hero__title">Clean edits that grow audiences &amp; convert.</h1>
+          <p class="hero__sub">I'm Jassem — video editor &amp; motion designer for brands and creators who want to produce clean and engaging content.</p>
+          <div class="hero__cta">
+            <a class="btn btn--solid" href="#contact">Get in touch</a>
+            <a class="btn btn--outline" href="#works">View work</a>
+          </div>
+        </div>
+
+        <div class="hero__media reveal">
+          <!-- Showreel teaser: muted, autoplay, looped (placeholder until media is added) -->
+          <div class="reel reel--teaser" data-reel="showreel/reel_main" data-mode="teaser">
+            <div class="ph ph--16x9">
+              <div class="ph__grain" aria-hidden="true"></div>
+              <button class="reel__play" aria-label="Play showreel">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+              <span class="ph__tag">SHOWREEL · 16:9</span>
+              <button class="reel__sound" aria-label="Toggle sound" data-state="muted">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 5V4L8 9H4z"/><path class="reel__wave" d="M16 8.5a4 4 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SHOWREEL  (dedicated, full-width — plays with sound on click)
+         ============================================================ -->
+    <section class="showreel" id="showreel">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">Showreel</h2>
+          <p class="section-note">The full cut — sound on.</p>
+        </div>
+        <div class="reel reel--full" data-reel="showreel/reel_main" data-mode="full">
+          <div class="ph ph--16x9 ph--dark">
+            <div class="ph__grain" aria-hidden="true"></div>
+            <button class="reel__play reel__play--lg" aria-label="Play showreel with sound">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <span class="ph__tag ph__tag--light">FULL REEL · CLICK TO PLAY</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PERSONAL MESSAGE + CONTACT BAND
+         ============================================================ -->
+    <section class="band" id="contact">
+      <div class="container band__grid">
+        <div class="band__copy reveal">
+          <p class="band__msg">
+            <strong>I love helping creators achieving their vision - or bringing mine - to create high quality content.</strong> If you're ready to make your content look premium — and actually convert — let's talk.
+          </p>
+          <div class="band__contacts">
+            <a class="contact-row" href="tel:+15551234567">
+              <span class="contact-row__ic" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11 11 0 0 0 3.5.56 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11 11 0 0 0 .56 3.5 1 1 0 0 1-.25 1z"/></svg>
+              </span>
+              <span class="contact-row__txt"><small>Call today</small><b>+33 7 82 88 29 03</b></span>
+            </a>
+            <a class="contact-row" href="mailto:hello@jassem.com">
+              <span class="contact-row__ic" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm0 2v.4l8 5 8-5V7H4zm16 2.3-8 5-8-5V18h16V9.3z"/></svg>
+              </span>
+              <span class="contact-row__txt"><small>Email me</small><b>jassem_production@proton.me</b></span>
+            </a>
+          </div>
+          <a class="btn btn--solid band__btn" href="mailto:hello@jassem.com">Let's talk <span class="btn__arrow">↗</span></a>
+        </div>
+
+        <div class="band__photos reveal">
+          <!-- Replace each .photo placeholder with: <img src="your-photo.jpg" alt="..."> -->
+          <div class="photo photo--a">
+            <div class="ph__grain" aria-hidden="true"></div>
+            <span class="ph__tag">YOUR PHOTO</span>
+          </div>
+          <div class="photo photo--b">
+            <div class="ph__grain" aria-hidden="true"></div>
+            <span class="ph__tag">YOUR PHOTO</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         HIGHLIGHTED WORK  (bento)
+         ============================================================ -->
+    <section class="works" id="works">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 class="section-title">Highlighted work</h2>
+          <p class="section-note">Get a glimpse at my previous works.</p>
+        </div>
+        <div class="bento" id="bento"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         VRSS — CASE STUDY
+         ============================================================ -->
+    <section class="case" id="case">
+      <div class="container">
+        <div class="case__head reveal">
+          <div class="case__logo case__logo--img" aria-label="VRSS Fightgear logo">
+            <img src="logos/vrss.png" alt="VRSS Fightgear" />
+          </div>
+          <span class="case__kicker">Case study</span>
+        </div>
+
+        <div class="case__grid">
+          <div class="case__intro reveal">
+            <h2 class="case__title">VRSS Fightgear</h2>
+            <p class="case__body">
+              A martial-arts equipment brand. We produced <strong>10 short videos a month for a full year</strong> —
+              a consistent, premium content engine built to grow reach and trust. The result: an Instagram
+              audience that went from <strong>4K to 136K followers</strong>.
+            </p>
+            <div class="case__bigstat">
+              <span class="case__bigstat-num">4K → 136K</span>
+              <span class="case__bigstat-label">Instagram followers · 12 months</span>
+            </div>
+            <a class="btn btn--outline case__ig" href="https://www.instagram.com/vrss_fightgear/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="ig-ic"><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm0-2.7c2 0 2.25 0 3 .04 1.96.09 2.88 1 2.97 2.97.04.78.04 1 .04 3.04s0 2.26-.04 3.04c-.09 1.96-1 2.88-2.97 2.97-.78.04-1 .04-3 .04s-2.25 0-3-.04c-1.97-.09-2.88-1.02-2.97-2.97C5.96 14.26 5.96 14 5.96 12s0-2.26.04-3.04C6.09 7 7 6.08 8.96 5.99c.78-.04 1.04-.04 3.04-.04zM12 4c-2.07 0-2.33 0-3.14.05C6.2 4.17 4.6 5.76 4.49 8.4 4.45 9.22 4.44 9.48 4.44 12s0 2.78.05 3.6c.12 2.64 1.71 4.23 4.37 4.35.81.05 1.07.05 3.14.05s2.33 0 3.14-.05c2.65-.12 4.25-1.71 4.36-4.35.05-.82.05-1.08.05-3.6s0-2.78-.05-3.6c-.11-2.64-1.71-4.23-4.36-4.35C14.33 4 14.07 4 12 4zm5.34 2.66a.84.84 0 1 0 0 1.68.84.84 0 0 0 0-1.68z"/></svg>
+              @vrss_fightgear
+            </a>
+          </div>
+
+          <!-- Vertical case videos rendered from config (data-files = video ids from videos.js) -->
+          <div class="case__videos" id="case-videos" data-case="vrss"></div>
+        </div>
+
+        <figure class="case__quote case__quote--wide reveal">
+          <blockquote>"Jassem has been a major factor in our social media growth! 
+With his very rational and simulataneously creative approach he helped us find our brand language with edits and he has something that is very important for me: He truly thinks along instead of just trying to get the job done."</blockquote>
+          <figcaption>Florent Beqiri  · Founder of VRSS Fightgear</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ALEX — CASE STUDY    (mirrors VRSS — edit copy / stats / quote)
+         ============================================================ -->
+    <section class="case case--alt" id="case-alex">
+      <div class="container">
+        <div class="case__head reveal">
+          <div class="case__logo" aria-label="Alex logo">
+            <span>ALEX</span>
+          </div>
+          <span class="case__kicker">Case study</span>
+        </div>
+
+        <div class="case__grid case__grid--stack">
+          <div class="case__intro reveal">
+            <h2 class="case__title">Alex</h2>
+            <!-- EDIT: replace with Alex's real story & numbers -->
+            <p class="case__body">creative editing - fast paced ...</p>
+          </div>
+
+          <!-- Small gallery — add up to ~8 video ids (from videos.js) to data-files -->
+          <div class="case__videos case__videos--gallery" data-case="alex"></div>
+        </div>
+
+        <figure class="case__quote reveal">
+          <blockquote>"EDIT: paste Alex's testimonial here — what it was like to work together and the results it produced."</blockquote>
+          <figcaption>Alex · Role / Company</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SCM — CASE STUDY    (mirrors VRSS — edit copy / stats / quote)
+         ============================================================ -->
+    <section class="case" id="case-scm">
+      <div class="container">
+        <div class="case__head reveal">
+          <div class="case__logo" aria-label="SCM logo">
+            <span>SCM</span>
+          </div>
+          <span class="case__kicker">Case study</span>
+        </div>
+
+        <div class="case__grid">
+          <div class="case__intro reveal">
+            <h2 class="case__title">SCM</h2>
+            <!-- EDIT: replace with SCM's real story & numbers -->
+            <p class="case__body">video batch of 20 vids to present the products and services</p>
+            <a class="btn btn--outline case__ig" href="https://solutioncannabismedical.com/" target="_blank" rel="noopener">
+              Visit website <span class="btn__arrow">↗</span>
+            </a>
+          </div>
+
+          <!-- 1 horizontal (id:h) + 2 vertical (id:v) — ids from videos.js -->
+          <div class="case__videos case__videos--scm" data-case="scm"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         WORK BY CATEGORY  (filterable gallery)
+         ============================================================ -->
+    <section class="gallery" id="gallery">
+      <div class="container">
+        <div class="section-head section-head--row reveal">
+          <h2 class="section-title">Work by category</h2>
+          <div class="filters" id="filters" role="tablist" aria-label="Filter work by category">
+            <button class="filter is-active" data-cat="all" role="tab" aria-selected="true">All</button>
+            <button class="filter" data-cat="entertainment" role="tab" aria-selected="false">Entertainment</button>
+            <button class="filter" data-cat="educational" role="tab" aria-selected="false">Educational</button>
+            <button class="filter" data-cat="corporate" role="tab" aria-selected="false">Corporate</button>
+          </div>
+        </div>
+        <div class="grid" id="gallery-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         TESTIMONIALS
+         ============================================================ -->
+    <section class="testimonials" id="testimonials">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 class="section-title">What clients say</h2>
+        </div>
+        <div class="t-grid" id="reviews-grid"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       SECTION RAIL  (floating scroll-spy navigator)
+       ============================================================ -->
+  <nav class="railnav" aria-label="Jump to section">
+    <ul class="railnav__list">
+      <li><a class="railnav__item" href="#about"><span class="railnav__label">Intro</span><span class="railnav__tick"></span></a></li>
+      <li><a class="railnav__item" href="#showreel"><span class="railnav__label">Showreel</span><span class="railnav__tick"></span></a></li>
+      <li><a class="railnav__item" href="#contact"><span class="railnav__label">Contact</span><span class="railnav__tick"></span></a></li>
+      <li><a class="railnav__item" href="#works"><span class="railnav__label">Work</span><span class="railnav__tick"></span></a></li>
+      <li><a class="railnav__item" href="#case"><span class="railnav__label">VRSS</span><span class="railnav__tick"></span></a></li>
+      <li><a class="railnav__item" href="#case-alex"><span class="railnav__label">Alex</span><span class="railnav__tick"></span></a></li>
+      <li><a class="railnav__item" href="#case-scm"><span class="railnav__label">SCM</span><span class="railnav__tick"></span></a></li>
+      <li><a class="railnav__item" href="#gallery"><span class="railnav__label">Gallery</span><span class="railnav__tick"></span></a></li>
+      <li><a class="railnav__item" href="#testimonials"><span class="railnav__label">Reviews</span><span class="railnav__tick"></span></a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__lead reveal">
+        <h2 class="footer__title">Let's make something premium.</h2>
+        <a class="btn btn--solid btn--lg" href="mailto:hello@jassem.com">Get in touch <span class="btn__arrow">↗</span></a>
+      </div>
+      <div class="footer__row">
+        <a class="footer__brand" href="#top"><span class="nav__mark" aria-hidden="true"></span> Jassem</a>
+        <nav class="footer__social" aria-label="Social">
+          <a href="https://www.instagram.com/vrss_fightgear/" target="_blank" rel="noopener">Instagram</a>
+          <a href="#" rel="noopener">YouTube</a>
+          <a href="#" rel="noopener">TikTok</a>
+          <a href="mailto:hello@jassem.com">Email</a>
+        </nav>
+        <small class="footer__copy">© <span id="year"></span> Jassem. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       VIDEO MODAL / LIGHTBOX
+       ============================================================ -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Video player">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__dialog">
+      <button class="modal__close" data-close aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal__stage" id="modal-stage"></div>
+      <div class="modal__meta">
+        <div>
+          <h3 class="modal__title" id="modal-title"></h3>
+          <p class="modal__client" id="modal-client"></p>
+        </div>
+        <a class="modal__ig" id="modal-ig" href="#" target="_blank" rel="noopener" hidden>View on Instagram ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Single sources of truth, then the render engine -->
+  <script src="videos.js"></script>
+  <script src="reviews.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
