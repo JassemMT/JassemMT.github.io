@@ -14,7 +14,7 @@ function readBaseline() {
   return {
     videos: (D.VIDEOS || []).map(v => ({
       cat: v.cat, file: v.file, title: v.title || "", client: v.client || "",
-      instagram: v.instagram || "", bunny: v.bunny || "", src: v.src || "", autoplay: !!v.autoplay,
+      instagram: v.instagram || "", bunny: v.bunny || "", src: v.src || "", customThumb: v.customThumb || "", autoplay: !!v.autoplay,
     })),
     featured: {
       bigCard: (D.FEATURED_LAYOUT || {}).bigCard || "",
@@ -36,6 +36,7 @@ function serialize(s) {
   const vlines = s.videos.map(v => {
     const p = [`cat: ${q(v.cat)}`, `file: ${q(v.file)}`, `title: ${q(v.title)}`, `client: ${q(v.client)}`, `instagram: ${q(v.instagram)}`];
     if (v.bunny) p.push(`bunny: ${q(v.bunny)}`);
+    if (v.customThumb) p.push(`customThumb: ${q(v.customThumb)}`);
     if (v.src) p.push(`src: ${q(v.src)}`);
     if (v.autoplay) p.push(`autoplay: true`);
     return `  { ${p.join(", ")} },`;
@@ -167,7 +168,7 @@ function App() {
   /* ---- mutations ---- */
   const openNew = () => {
     const cat = catF !== "all" ? catF : "entertainment";
-    setEditing({ draft: { cat, file: nextFileId(cat, state.videos), title: "", client: clientF !== "all" ? clientF : "", instagram: "", bunny: "", src: "", autoplay: false, __isNew: true, __orig: null }, thumb: null });
+    setEditing({ draft: { cat, file: nextFileId(cat, state.videos), title: "", client: clientF !== "all" ? clientF : "", instagram: "", bunny: "", src: "", customThumb: "", autoplay: false, __isNew: true, __orig: null }, thumb: null });
   };
   const openEdit = (v) => setEditing({ draft: { ...v, __orig: v.file, __isNew: false }, thumb: thumbs[v.file] || null });
 

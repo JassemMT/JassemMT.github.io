@@ -7,15 +7,17 @@
                  Poster comes from  videos/<cat>/<file>.jpg  (optional).
      • IMAGE   : add  src: "<file>.(gif|png|jpg|webp)"  — shown as-is.
      • autoplay: true  → loops muted right in the card (compilations).
+     • horizontal: true → marks 16:9 videos. In the gallery grid they span
+                          2 columns and match the height of vertical (9:16) cards.
    cat ∈ entertainment | educational | corporate | showreel
    Flip MEDIA_READY to true once local posters/mp4s exist. Bunny videos always play.
    ============================================================================ */
 
 const VIDEOS = [
   { cat: "educational", file: "edu_1", title: "VRSS - Highlight clip compilation", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/56661d87-4066-4cab-a968-1681c85ac209", autoplay: true },
-  { cat: "educational", file: "edu_2", title: "VRSS - Podcast trailer", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/2cabf19a-c03c-4e19-9fc7-934d630fb23b", autoplay: true },
-  { cat: "educational", file: "edu_3", title: "VRSS - Product Ad", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/73249e25-6d51-483c-9e3f-f76298420e57", autoplay: true },
-  { cat: "educational", file: "edu_4", title: "Politique", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/1cabd9f9-9ebe-4717-a6f4-a9941a6fea16" },
+  { cat: "educational", file: "edu_2", title: "VRSS - Podcast trailer", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/2cabf19a-c03c-4e19-9fc7-934d630fb23b" },
+  { cat: "educational", file: "edu_3", title: "VRSS - Product Ad", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/73249e25-6d51-483c-9e3f-f76298420e57", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/d8020bd7-a3a0-4122-85f4-312263e8fdd7/thumbnail_81e2c6ed.jpg" },
+  { cat: "educational", file: "edu_4", title: "Video essay - minimalist editing style", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/1cabd9f9-9ebe-4717-a6f4-a9941a6fea16" },
   { cat: "educational", file: "edu_5", title: "Canada thrift store", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/e4c96fab-a1d2-4ccd-b352-1b3e27b54351" },
   { cat: "corporate", file: "edu_6", title: "Interview - ORA outlet", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/387c6fb2-438a-4c2c-9fa2-75a67cfa521d" },
   { cat: "entertainment", file: "edu_7", title: "Self improvement", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/6b1adf18-b3b9-456c-b3ab-ceb296f65e3a" },
@@ -24,19 +26,45 @@ const VIDEOS = [
   { cat: "corporate", file: "cor_1", title: "SCM - Product Educationnal presentation", client: "SCM", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/abd5fa04-ef8c-402c-bd05-cd378fb3869f" },
   { cat: "corporate", file: "cor_2", title: "SCM - Educationnal videos", client: "SCM", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/678759d3-642a-4dee-b8b9-77b8e34f616e" },
   { cat: "corporate", file: "cor_3", title: "SCM - Educational Video 2", client: "SCM", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/8bc0a935-eecd-417f-ae6f-c6c8e3584de5" },
+  { cat: "entertainment", file: "ent_1", title: "Alex - Air Max", client: "Alex", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/78512388-bcf6-48f5-9714-fde95dfeef97", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/78512388-bcf6-48f5-9714-fde95dfeef97/thumbnail_001e6958.jpg" },
+  { cat: "entertainment", file: "ent_2", title: "Alex - Safari Jacket", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/9bd90e09-6682-4009-911c-0c1081d791a9", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/9bd90e09-6682-4009-911c-0c1081d791a9/thumbnail_83d55439.jpg" },
+  { cat: "entertainment", file: "ent_3", title: "Alex - Sebago", client: "Alex", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/74476d13-2c6a-45fc-9f32-75f3c32187e6", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/74476d13-2c6a-45fc-9f32-75f3c32187e6/thumbnail_42105b81.jpg" },
+  { cat: "entertainment", file: "ent_4", title: "Alex - Constanza", client: "Alex", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/a1549ce0-8629-4601-8cc5-58f2343e8642", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/a1549ce0-8629-4601-8cc5-58f2343e8642/thumbnail_8bf8dde2.jpg" },
+  { cat: "entertainment", file: "ent_5", title: "Alex - Monkey", client: "Alex", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/6db16d47-f287-49fd-b082-78247957e863", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/6db16d47-f287-49fd-b082-78247957e863/thumbnail_77830de5.jpg" },
+  { cat: "entertainment", file: "ent_6", title: "Alex - Uniqlo", client: "Alex", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/a8a79177-a9e7-42a8-9d33-8454bf08225e", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/a8a79177-a9e7-42a8-9d33-8454bf08225e/thumbnail_3d1d9144.jpg" },
+  { cat: "entertainment", file: "ent_7", title: "Alex - Levi's", client: "Alex", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/00e78f73-8593-47c7-8d65-1a39bd923d90", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/00e78f73-8593-47c7-8d65-1a39bd923d90/thumbnail_240be4dd.jpg" },
+  { cat: "entertainment", file: "ent_8", title: "Alex - Tank Top", client: "Alex", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/c9cd2587-dddc-4802-a2e2-0560c489a7dd", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/c9cd2587-dddc-4802-a2e2-0560c489a7dd/thumbnail_590503f7.jpg" },
+  { cat: "entertainment", file: "ent_9", title: "Alex - Penny Loafer", client: "Alex", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/c56b8e49-6e1f-4c92-a62f-d68744550411", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/c56b8e49-6e1f-4c92-a62f-d68744550411/thumbnail_8d4b001a.jpg" },
+  { cat: "entertainment", file: "ent_10", title: "Alex - Converse", client: "Alex", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/3ab11338-07c1-468a-872a-063c208756ab", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/3ab11338-07c1-468a-872a-063c208756ab/thumbnail_2204d209.jpg" },
+  { cat: "entertainment", file: "ent_11", title: "Alex - SHEIN", client: "Alex", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/40f8508e-62b9-4ab0-b7e3-f94baced5d59", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/40f8508e-62b9-4ab0-b7e3-f94baced5d59/thumbnail_22d8ca26.jpg" },
+  { cat: "entertainment", file: "ent_12", title: "Alex - Severance", client: "Alex", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/20354283-8da6-40fc-97b4-fe070829940f", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/20354283-8da6-40fc-97b4-fe070829940f/thumbnail_9185dc89.jpg" },
+  { cat: "educational", file: "ent_13", title: "BenWoollisABtesting", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/d3b8f876-7fa1-4466-af23-9ad2feba7b34" },
+  { cat: "educational", file: "ent_14", title: "VRSS - January", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/37ec6e59-fa24-4b99-858c-96586be2b61b" },
+  { cat: "educational", file: "ent_15", title: "FEATURE_PodcastTeaser", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/b56ced40-8c23-4009-abae-6c65812e1563" },
+  { cat: "educational", file: "ent_16", title: "VRSS - December", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/569055ab-7bb6-44e1-b716-05f53467334b" },
+  { cat: "educational", file: "ent_17", title: "August_Mastery", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/8ee11176-0262-464b-8ad5-8a075e6a667d" },
+  { cat: "educational", file: "ent_18", title: "April", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/dce32c9d-e228-44ca-8536-c60cd3a6b95e" },
+  { cat: "educational", file: "ent_19", title: "VRSS - September_2", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/3c05cafa-cd72-48f9-a7a7-282e76acb2f6" },
+  { cat: "educational", file: "ent_20", title: "VRSS - September", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/676177da-8e12-4628-9753-32e878ff5025" },
+  { cat: "educational", file: "ent_21", title: "VRSS - october_2", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/4893e8fb-0f16-4f22-a8ba-aec563ac15fd" },
+  { cat: "educational", file: "ent_22", title: "october", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/839e9977-6d38-450e-bcb2-0b65c78d1d6d" },
+  { cat: "educational", file: "ent_23", title: "VRSS - November", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/771e231b-5597-470a-b4ed-4779347380d8" },
+  { cat: "educational", file: "ent_24", title: "VRSS - Mental_5", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/780c03e3-a79e-42a8-9b67-c713dc765dd8" },
+  { cat: "educational", file: "ent_25", title: "VRSS - Mental_4", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/f28e68d2-7c3b-42b9-a2ed-3d417865eb02" },
+  { cat: "educational", file: "ent_26", title: "VRSS - February-March", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/d27d688b-9beb-4a41-a4c3-49ad5e2f7d17" },
 ];
 
 /* HIGHLIGHTED WORK — bento: 1 big 16:9 + up to 5 verticals (first 2 top-right, next 3 bottom). */
 const FEATURED_LAYOUT = {
   bigCard: "edu_4",
-  verticalCards: ["edu_1", "edu_5", "edu_6", "edu_9"],
+  verticalCards: ["edu_9", "edu_6", "edu_5", "edu_1", "ent_9"],
 };
 
 /* CASE STUDIES — ordered file ids per section (data-case="<key>" in index.html).
    Tokens may force orientation: "id:h" (horizontal) or "id:v". */
 const CASE_STUDIES = {
   vrss: ["edu_2", "edu_1", "edu_3"],
-  alex: [],
+  alex: ["ent_11", "ent_9", "ent_6", "ent_1", "ent_2", "ent_4", "ent_5", "ent_8", "ent_10", "ent_3", "ent_7", "ent_12"],
   scm: ["cor_1:h", "cor_2", "cor_3"],
 };
 const VRSS_VIDEOS = CASE_STUDIES.vrss; // legacy alias

@@ -9,7 +9,7 @@ const CATS = ["entertainment", "educational", "corporate", "showreel"];
 const CAT_LABEL = { entertainment: "Entertainment", educational: "Educational", corporate: "Corporate", showreel: "Showreel" };
 const IMG_RE = /\.(jpe?g|png|webp|gif|avif|svg)$/i;
 const isImageSrc = s => IMG_RE.test(s || "");
-const posterPath = v => `videos/${v.cat}/${v.file}.jpg`;
+const posterPath = v => v.customThumb ? v.customThumb : `videos/${v.cat}/${v.file}.jpg`;
 const mediaImgPath = v => (v.src && isImageSrc(v.src)) ? `videos/${v.cat}/${v.src}` : posterPath(v);
 const cls = (...a) => a.filter(Boolean).join(" ");
 
@@ -42,7 +42,7 @@ function Thumb({ v, override, variant }) {
     img.onerror = () => { if (alive) setSrc(null); };
     img.src = mediaImgPath(v);
     return () => { alive = false; };
-  }, [v && v.file, v && v.cat, v && v.src, override]);
+  }, [v && v.file, v && v.cat, v && v.src, v && v.customThumb, override]);
   if (src) return <img src={src} alt="" />;
   return <div className="vc__ph">{Ic.film}</div>;
 }
@@ -260,6 +260,12 @@ function VideoEditor({ draft, clients, allFiles, thumb, onThumb, onChange, onTes
           )}
 
           <DropZone v={v} override={thumb} onFile={onThumb} dirHandle={dirHandle} flash={flash} />
+          
+          <div className="fld" style={{ marginTop: 16 }}>
+            <label>Custom Thumbnail URL (optional)</label>
+            <input type="url" value={v.customThumb || ""} onChange={e => onChange({ customThumb: e.target.value })} placeholder="https://vz-.../thumbnail_xxxx.jpg" />
+            <div className="hint">If provided, this URL overrides the local image and the default Bunny thumbnail.</div>
+          </div>
         </div>
 
         <div className="drawer__foot">

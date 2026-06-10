@@ -70,7 +70,6 @@
                   <path d="M8 5v14l11-7z" />
                 </svg>
               </button>
-              <span class="ph__tag">SHOWREEL · 16:9</span>
               <button class="reel__sound" aria-label="Toggle sound" data-state="muted">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M4 9v6h4l5 5V4L8 9H4z" />
@@ -142,15 +141,9 @@
         </div>
 
         <div class="band__photos reveal">
-          <!-- Replace each .photo placeholder with: <img src="your-photo.jpg" alt="..."> -->
-          <div class="photo photo--a">
-            <div class="ph__grain" aria-hidden="true"></div>
-            <span class="ph__tag">YOUR PHOTO</span>
-          </div>
-          <div class="photo photo--b">
-            <div class="ph__grain" aria-hidden="true"></div>
-            <span class="ph__tag">YOUR PHOTO</span>
-          </div>
+          <img src="photos/laptop.jpeg" alt="Laptop" class="photo photo--a" style="object-fit: cover;" />
+          <img src="photos/premiere_laptop.gif" alt="Premiere workspace" class="photo photo--b"
+            style="object-fit: cover;" />
         </div>
       </div>
     </section>
@@ -253,8 +246,8 @@
     <section class="case" id="case-scm">
       <div class="container">
         <div class="case__head reveal">
-          <div class="case__logo" aria-label="SCM logo">
-            <span>SCM</span>
+          <div class="case__logo case__logo--img" aria-label="SCM logo">
+            <img src="logos/scm.png" alt="SCM" />
           </div>
           <span class="case__kicker">Case study</span>
         </div>

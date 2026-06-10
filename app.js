@@ -15,7 +15,7 @@
 
   /* ---- path conventions ---- */
   const videoPath  = v => `videos/${v.cat}/${v.file}.mp4`;
-  const posterPath = v => `videos/${v.cat}/${v.file}.jpg`;
+  const posterPath = v => v.customThumb ? v.customThumb : `videos/${v.cat}/${v.file}.jpg`;
   const isImagePath = p => /\.(jpe?g|png|webp|gif|avif|svg)$/i.test(p || "");
 
   const BUNNY_CDN = "vz-0cb7ad4b-add.b-cdn.net";
@@ -126,20 +126,22 @@
         img.src = mediaSrc(v);
       } else {
         // Video item: try the local poster .jpg; if missing, try Bunny thumbnail,
-        // then decode the video's first frame.
+        // then decode the video's first frame using the Bunny MP4 stream.
         img.onerror = () => {
           const bThumb = bunnyThumb(v);
+          const bMp4 = v.bunny ? `https://${BUNNY_CDN}/${getBunnyId(v.bunny)}/play_720p.mp4` : mediaSrc(v);
+          
           if (bThumb) {
             img.onerror = () => {
               img.style.display = "none";
-              captureFirstFrame(mediaSrc(v), (url) => { 
+              captureFirstFrame(bMp4, (url) => { 
                 img.onerror = null; img.style.display = ""; img.src = url; 
               });
             };
             img.src = bThumb;
           } else {
             img.style.display = "none";
-            captureFirstFrame(mediaSrc(v), (url) => { 
+            captureFirstFrame(bMp4, (url) => { 
               img.onerror = null; img.style.display = ""; img.src = url; 
             });
           }
@@ -261,7 +263,7 @@
     if (!grid) return;
     DATA.VIDEOS
       .filter(v => v.cat !== "showreel")
-      .forEach(v => grid.appendChild(makeCard(v, "v")));
+      .forEach(v => grid.appendChild(makeCard(v, v.horizontal ? "h" : "v")));
 
     const filters = document.querySelectorAll("#filters .filter");
     filters.forEach(btn => {
@@ -405,9 +407,27 @@
      Full:   click to play with sound.
      ======================================================================== */
   function wireReels() {
+    const showreels = DATA.VIDEOS.filter(v => v.cat === "showreel");
+    const hasShowreel = showreels.length > 0;
+
+    const showreelSection = document.getElementById("showreel");
+    if (showreelSection) {
+      showreelSection.style.display = hasShowreel ? "" : "none";
+    }
+
+    const showreelNav = document.querySelector('a[href="#showreel"]');
+    if (showreelNav) {
+      showreelNav.style.display = hasShowreel ? "" : "none";
+    }
+
     document.querySelectorAll(".reel").forEach(reel => {
-      const path = reel.dataset.reel; // e.g. "showreel/reel_main"
+      let path = reel.dataset.reel; // e.g. "showreel/reel_main"
       const mode = reel.dataset.mode;
+      
+      // Update path to the actual showreel if one exists
+      if (mode === "full" && hasShowreel) {
+        path = `showreel/${showreels[0].file}`;
+      }
       const ph = reel.querySelector(".ph");
       const src = `videos/${path}.mp4`;
 

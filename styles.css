@@ -404,6 +404,11 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .grid .vcard.is-hidden { display: none; }
 .grid .vcard { animation: cardIn .4s var(--ease) both; }
+/* Horizontal (16:9) cards span 2 columns and match the height of vertical (9:16) cards.
+   Vertical media ratio = 9:16, so height = colW × 16/9.
+   Horizontal card width = 2 × colW, so aspect = 2colW / (colW × 16/9) = 9/8. */
+.grid .vcard--h { grid-column: span 2; }
+.grid .vcard--h .vcard__media { aspect-ratio: 9 / 8; }
 @keyframes cardIn { from { transform: translateY(10px); } to { transform: none; } }
 
 /* ============================================================
