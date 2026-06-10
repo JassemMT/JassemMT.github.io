@@ -70,7 +70,7 @@ const CASE_STUDIES = {
 const VRSS_VIDEOS = CASE_STUDIES.vrss; // legacy alias
 
 /* HERO MEDIA — relative to videos/. Image ext → still; video ext → player. */
-const HERO_MEDIA = "showreel/img_main.png";
+const HERO_MEDIA = "../photos/image_acceuil.png";
 
 /* MEDIA READY — false keeps placeholder mode (no requests for missing local files). */
 const MEDIA_READY = true;

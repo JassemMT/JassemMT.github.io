@@ -456,11 +456,23 @@
           if (soundBtn) soundBtn.remove();
           if (playBtn) playBtn.remove();
           if (tag) tag.textContent = "SHOWREEL · IMAGE";
+          
+          const grain = ph.querySelector(".ph__grain");
+          if (grain) grain.remove();
+
           if (READY && file) {
             const img = new Image();
-            img.className = "poster";          // absolute fill, object-fit: cover
             img.alt = "Showreel";
-            img.onload = () => ph.appendChild(img);
+            img.style.width = "100%";
+            img.style.height = "auto";
+            img.style.display = "block";
+            
+            img.onload = () => {
+              ph.appendChild(img);
+              ph.style.background = "none";
+              ph.classList.remove("ph--16x9");
+              reel.style.boxShadow = "none";
+            };
             img.onerror = () => {};
             img.src = "videos/" + file;
             reel.style.cursor = "zoom-in";
