@@ -415,10 +415,9 @@
       showreelSection.style.display = hasShowreel ? "" : "none";
     }
 
-    const showreelNav = document.querySelector('a[href="#showreel"]');
-    if (showreelNav) {
-      showreelNav.style.display = hasShowreel ? "" : "none";
-    }
+    document.querySelectorAll('a[href="#showreel"]').forEach(link => {
+      link.style.display = hasShowreel ? "" : "none";
+    });
 
     document.querySelectorAll(".reel").forEach(reel => {
       let path = reel.dataset.reel; // e.g. "showreel/reel_main"
@@ -519,6 +518,15 @@
     const R = window.REVIEWS_DATA || { REVIEWS: [], AVATARS_READY: false };
     const list = R.REVIEWS || [];
     const avatarsReady = !!R.AVATARS_READY;
+
+    const hasTestimonials = list.length > 0;
+    const testimonialsSection = document.getElementById("testimonials");
+    if (testimonialsSection) {
+      testimonialsSection.style.display = hasTestimonials ? "" : "none";
+    }
+    document.querySelectorAll('a[href="#testimonials"]').forEach(link => {
+      link.style.display = hasTestimonials ? "" : "none";
+    });
 
     list.forEach(r => {
       if (!r || !r.quote) return;
