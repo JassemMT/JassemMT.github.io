@@ -7,8 +7,6 @@
                  Poster comes from  videos/<cat>/<file>.jpg  (optional).
      • IMAGE   : add  src: "<file>.(gif|png|jpg|webp)"  — shown as-is.
      • autoplay: true  → loops muted right in the card (compilations).
-     • horizontal: true → marks 16:9 videos. In the gallery grid they span
-                          2 columns and match the height of vertical (9:16) cards.
    cat ∈ entertainment | educational | corporate | showreel
    Flip MEDIA_READY to true once local posters/mp4s exist. Bunny videos always play.
    ============================================================================ */
@@ -57,7 +55,7 @@ const VIDEOS = [
 /* HIGHLIGHTED WORK — bento: 1 big 16:9 + up to 5 verticals (first 2 top-right, next 3 bottom). */
 const FEATURED_LAYOUT = {
   bigCard: "edu_4",
-  verticalCards: ["edu_9", "edu_6", "edu_5", "edu_1", "ent_9"],
+  verticalCards: ["edu_6", "ent_11", "edu_5", "edu_1", "ent_9"],
 };
 
 /* CASE STUDIES — ordered file ids per section (data-case="<key>" in index.html).
@@ -70,7 +68,7 @@ const CASE_STUDIES = {
 const VRSS_VIDEOS = CASE_STUDIES.vrss; // legacy alias
 
 /* HERO MEDIA — relative to videos/. Image ext → still; video ext → player. */
-const HERO_MEDIA = "../photos/image_acceuil.png";
+const HERO_MEDIA = "showreel/img_main.png";
 
 /* MEDIA READY — false keeps placeholder mode (no requests for missing local files). */
 const MEDIA_READY = true;
