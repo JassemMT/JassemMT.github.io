@@ -315,27 +315,30 @@
   let lastFocus = null;
 
   function openModal(v) {
+    const vertical = !v.horizontal;
     if (v.bunny) {
       openMediaModal({
-        bunny: v.bunny,
+        bunny: v.bunny, vertical,
         title: v.title, client: v.client, instagram: v.instagram
       });
     } else if (isImageItem(v)) {
       openMediaModal({
-        src: mediaSrc(v), image: true,
+        src: mediaSrc(v), image: true, vertical,
         title: v.title, client: v.client, instagram: v.instagram
       });
     } else {
       openMediaModal({
-        src: mediaSrc(v), poster: posterPath(v), image: false,
+        src: mediaSrc(v), poster: posterPath(v), image: false, vertical,
         title: v.title, client: v.client, instagram: v.instagram
       });
     }
   }
 
   // Generic opener — plays a Bunny Stream embed, a local video, OR shows an image.
-  function openMediaModal({ src, poster, image, bunny, title, client, instagram }) {
+  function openMediaModal({ src, poster, image, bunny, title, client, instagram, vertical }) {
     lastFocus = document.activeElement;
+    const dialog = document.querySelector(".modal__dialog");
+    dialog.classList.toggle("modal__dialog--vertical", !!vertical);
     stage.innerHTML = "";
 
     const showPlaceholder = () => {

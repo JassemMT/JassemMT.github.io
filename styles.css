@@ -451,11 +451,15 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .modal.is-open { display: grid; place-items: center; }
 .modal__backdrop { position: absolute; inset: 0; background: rgba(10,11,13,.78); backdrop-filter: blur(6px); animation: fade .3s var(--ease); }
 .modal__dialog { position: relative; z-index: 1; width: min(92vw, 1040px); animation: pop .35s var(--ease); }
+/* Vertical (9:16) videos: shrink the dialog so the content fills the viewport height
+   without leaving dead space on the sides. */
+.modal__dialog--vertical { width: min(92vw, calc((90vh - 100px) * 9 / 16)); }
 .modal__stage { border-radius: var(--r-lg); overflow: hidden; box-shadow: 0 40px 120px -40px rgba(0,0,0,.7); }
 .modal__stage .ph { border-radius: var(--r-lg); }
 .modal__stage video,
 .modal__stage img { width: 100%; display: block; border-radius: var(--r-lg); background: #000; }
 .modal__stage iframe { width: 100%; aspect-ratio: 16 / 9; display: block; border: 0; border-radius: var(--r-lg); background: #000; }
+.modal__dialog--vertical .modal__stage iframe { aspect-ratio: 9 / 16; }
 .modal__close {
   position: absolute; right: 0; top: -46px; width: 38px; height: 38px;
   border-radius: 50%; background: rgba(255,255,255,.14); color: #fff; display: grid; place-items: center;
