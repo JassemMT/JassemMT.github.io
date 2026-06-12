@@ -226,6 +226,52 @@
   }
 
   /* ========================================================================
+     HERO CAROUSEL
+     ======================================================================== */
+  function renderHeroCarousel() {
+    const track = document.getElementById("hero-carousel-track");
+    if (!track) return;
+    
+    // 5 vertical videos arbitrarily chosen
+    const carouselIds = ["ent_11", "edu_1", "ent_6", "ent_20", "ent_24"];
+    const videos = carouselIds.map(id => byFile[id]).filter(Boolean);
+    if (!videos.length) return;
+
+    const group1 = el("div", "hero-carousel__group");
+    const group2 = el("div", "hero-carousel__group");
+    
+    videos.forEach(v => {
+      const makeItem = () => {
+        const item = el("div", "hero-carousel__item");
+        const bPrev = bunnyPreview(v);
+        const vsrc = bPrev || mediaSrc(v);
+        
+        const vid = el("video");
+        vid.muted = true; vid.loop = true; vid.playsInline = true; vid.autoplay = true;
+        vid.setAttribute("muted", "");
+        vid.preload = "auto";
+        vid.poster = posterPath(v);
+        vid.src = vsrc;
+        
+        vid.addEventListener("error", () => {
+          if (bPrev && vid.src.includes("720p")) {
+            vid.src = `https://${BUNNY_CDN}/${getBunnyId(v.bunny)}/play_480p.mp4`;
+          }
+        });
+        
+        item.appendChild(vid);
+        return item;
+      };
+      
+      group1.appendChild(makeItem());
+      group2.appendChild(makeItem());
+    });
+    
+    track.appendChild(group1);
+    track.appendChild(group2);
+  }
+
+  /* ========================================================================
      HIGHLIGHTED WORK (bento)
      Top band : big 16:9 horizontal VSL (left) + 1 vertical (right)
      Bottom band : the remaining vertical cards, equal columns
@@ -689,6 +735,7 @@
      INIT
      ======================================================================== */
   function init() {
+    renderHeroCarousel();
     renderBento();
     renderGallery();
     renderCaseVideos();
