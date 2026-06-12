@@ -20,8 +20,7 @@
     document.documentElement.classList.add('js');
     (function() {
       var stored = localStorage.getItem('theme');
-      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (stored === 'dark' || (!stored && prefersDark)) {
+      if (stored === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
       }
     })();
@@ -375,6 +374,7 @@
           <h3 class="modal__title" id="modal-title"></h3>
           <p class="modal__client" id="modal-client"></p>
         </div>
+        <a id="modal-ig" class="modal__ig" target="_blank" rel="noopener">Instagram ↗</a>
       </div>
     </div>
   </div>

@@ -429,7 +429,9 @@
     document.getElementById("modal-title").textContent = title || "";
     document.getElementById("modal-client").textContent = client || "";
     const ig = document.getElementById("modal-ig");
-    if (instagram) { ig.href = instagram; ig.hidden = false; } else { ig.hidden = true; }
+    if (ig) {
+      if (instagram) { ig.href = instagram; ig.hidden = false; } else { ig.hidden = true; }
+    }
 
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
