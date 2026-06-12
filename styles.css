@@ -79,6 +79,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   letter-spacing: .01em; margin-bottom: 1.1rem;
 }
 .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.eyebrow__pic { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
 
 .section-head { margin-bottom: clamp(28px, 4vw, 52px); }
 .section-head--row {
