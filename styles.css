@@ -323,6 +323,20 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   display: grid; grid-template-columns: 1.05fr .95fr;
   gap: clamp(28px, 5vw, 64px); align-items: center;
 }
+
+.band__author-card {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--bg); border: 1px solid var(--line);
+  padding: 12px 20px 12px 12px; border-radius: var(--pill);
+  margin-bottom: 24px; width: 100%;
+  max-width: calc(22 * clamp(1.4rem, 2.6vw, 2rem));
+  box-shadow: 0 8px 24px -12px rgba(0,0,0,.1);
+}
+.band__author-img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; flex: none; }
+.band__author-info { display: flex; flex-direction: column; line-height: 1.25; }
+.band__author-info strong { font-weight: 600; font-size: 1.1rem; color: var(--ink); }
+.band__author-info span { font-size: .9rem; color: var(--muted); }
+
 .band__msg { font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 500; letter-spacing: -.02em; line-height: 1.2; max-width: 22ch; text-wrap: balance; }
 .band__msg strong { font-weight: 700; }
 .band__contacts { display: flex; flex-wrap: wrap; gap: 14px 36px; margin-top: 2rem; }
