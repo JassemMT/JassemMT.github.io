@@ -557,6 +557,59 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 }
 
 /* ============================================================
+   DARK MODE & THEME TOGGLE
+   ============================================================ */
+[data-theme="dark"] {
+  --bg: #0f1115;
+  --surface: #171a1f;
+  --ink: #f0f2f5;
+  --muted: #8e959d;
+  --line: #2b3036;
+
+  --ph-a: #1c2026;
+  --ph-b: #242930;
+  
+  --ph-dark-a: #121417;
+  --ph-dark-b: #1b1e22;
+}
+
+[data-theme="dark"] .btn--solid { color: var(--bg); }
+[data-theme="dark"] .btn--solid:hover { color: #fff; }
+[data-theme="dark"] .nav__mark::after { border-color: transparent transparent transparent var(--bg); }
+[data-theme="dark"] .case__logo { color: var(--bg); }
+[data-theme="dark"] .statchip { background: var(--ink); color: var(--bg); }
+[data-theme="dark"] .statchip__num { color: var(--bg); }
+[data-theme="dark"] .statchip__label { color: color-mix(in srgb, var(--bg) 70%, transparent); }
+
+/* Keep play buttons and badges black in dark mode */
+[data-theme="dark"] .vcard__badge,
+[data-theme="dark"] .vcard__corner { color: #000; }
+
+/* theme toggle styling */
+.nav__theme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  margin-left: 8px;
+  color: var(--ink);
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.nav__theme:hover { background: var(--surface); }
+.theme-icon { width: 18px; height: 18px; }
+.theme-icon-sun { display: none; }
+
+[data-theme="dark"] .theme-icon-moon { display: none; }
+[data-theme="dark"] .theme-icon-sun { display: block; }
+
+@media (max-width: 680px) {
+  .nav__theme { margin-left: auto; }
+  .nav__burger { margin-left: 8px; }
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 920px) {
