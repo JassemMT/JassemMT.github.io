@@ -244,9 +244,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   gap: var(--gap);
   animation: heroScroll 25s linear infinite;
 }
-.hero-carousel:hover .hero-carousel__track {
-  animation-play-state: paused;
-}
+
 .hero-carousel__group {
   display: flex;
   flex-direction: row;
