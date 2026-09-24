@@ -15,14 +15,15 @@ const VIDEOS = [
   { cat: "educational", file: "edu_1", title: "VRSS - Highlight clip compilation", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/56661d87-4066-4cab-a968-1681c85ac209", autoplay: true },
   { cat: "educational", file: "edu_2", title: "VRSS - Podcast trailer", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/2cabf19a-c03c-4e19-9fc7-934d630fb23b" },
   { cat: "educational", file: "edu_3", title: "VRSS - Product Ad", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/73249e25-6d51-483c-9e3f-f76298420e57", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/d8020bd7-a3a0-4122-85f4-312263e8fdd7/thumbnail_81e2c6ed.jpg" },
-  { cat: "educational", file: "edu_4", title: "Video essay - minimalist editing style", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/1cabd9f9-9ebe-4717-a6f4-a9941a6fea16", horizontal: true },
+  { cat: "educational", file: "edu_4", title: "Video essay - minimalist editing style", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/1cabd9f9-9ebe-4717-a6f4-a9941a6fea16" },
   { cat: "educational", file: "edu_5", title: "Canada thrift store", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/e4c96fab-a1d2-4ccd-b352-1b3e27b54351" },
+  { cat: "educational", file: "edu_27", title: "Short video - Empathy in combat sports", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/fa73620c-c8d0-40db-8977-f6fa9841f2c8", autoplay: true },
   { cat: "corporate", file: "edu_6", title: "Interview - ORA outlet", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/387c6fb2-438a-4c2c-9fa2-75a67cfa521d" },
   { cat: "entertainment", file: "edu_7", title: "Self improvement", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/6b1adf18-b3b9-456c-b3ab-ceb296f65e3a" },
   { cat: "educational", file: "edu_8", title: "Training montage - Self Improvement ", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/03617199-be09-4c0a-99f1-9c1a4058ae77" },
   { cat: "educational", file: "edu_9", title: "Old Video Showreel ", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/4b73ef3a-9ea4-4d31-b187-f7d70ed00ca8" },
-  { cat: "corporate", file: "cor_1", title: "SCM - Product Educational presentation", client: "SCM", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/abd5fa04-ef8c-402c-bd05-cd378fb3869f", horizontal: true },
-  { cat: "corporate", file: "cor_2", title: "SCM - Educational videos", client: "SCM", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/678759d3-642a-4dee-b8b9-77b8e34f616e" },
+  { cat: "corporate", file: "cor_1", title: "SCM - Product Educationnal presentation", client: "SCM", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/abd5fa04-ef8c-402c-bd05-cd378fb3869f" },
+  { cat: "corporate", file: "cor_2", title: "SCM - Educationnal videos", client: "SCM", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/678759d3-642a-4dee-b8b9-77b8e34f616e" },
   { cat: "corporate", file: "cor_3", title: "SCM - Educational Video 2", client: "SCM", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/8bc0a935-eecd-417f-ae6f-c6c8e3584de5" },
   { cat: "entertainment", file: "ent_1", title: "Alex - Air Max", client: "Alex", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/78512388-bcf6-48f5-9714-fde95dfeef97", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/78512388-bcf6-48f5-9714-fde95dfeef97/thumbnail_001e6958.jpg" },
   { cat: "entertainment", file: "ent_2", title: "Alex - Safari Jacket", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/9bd90e09-6682-4009-911c-0c1081d791a9", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/9bd90e09-6682-4009-911c-0c1081d791a9/thumbnail_83d55439.jpg" },
@@ -55,13 +56,13 @@ const VIDEOS = [
 /* HIGHLIGHTED WORK — bento: 1 big 16:9 + up to 5 verticals (first 2 top-right, next 3 bottom). */
 const FEATURED_LAYOUT = {
   bigCard: "edu_4",
-  verticalCards: ["edu_6", "ent_11", "edu_5", "edu_1", "ent_9"],
+  verticalCards: ["edu_6", "ent_11", "edu_1", "ent_9", "edu_27"],
 };
 
 /* CASE STUDIES — ordered file ids per section (data-case="<key>" in index.html).
    Tokens may force orientation: "id:h" (horizontal) or "id:v". */
 const CASE_STUDIES = {
-  vrss: ["edu_2", "edu_1", "edu_3"],
+  vrss: ["edu_2", "edu_1", "edu_27", "edu_3"],
   alex: ["ent_11", "ent_9", "ent_6", "ent_1", "ent_2", "ent_4", "ent_5", "ent_8", "ent_10", "ent_3", "ent_7", "ent_12"],
   scm: ["cor_1:h", "cor_2", "cor_3"],
 };
