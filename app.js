@@ -14,7 +14,7 @@
   const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   /* ---- path conventions ---- */
-  const videoPath  = v => `videos/${v.cat}/${v.file}.mp4`;
+  const videoPath = v => `videos/${v.cat}/${v.file}.mp4`;
   const posterPath = v => v.customThumb ? v.customThumb : `videos/${v.cat}/${v.file}.jpg`;
   const isImagePath = p => /\.(jpe?g|png|webp|gif|avif|svg)$/i.test(p || "");
 
@@ -30,7 +30,7 @@
   /* ---- per-item media: an entry is an IMAGE/GIF when `src` is an image file,
          otherwise it's a VIDEO (custom `src`, else the default <file>.mp4). ---- */
   const isImageItem = v => !!(v && v.src) && isImagePath(v.src);
-  const mediaSrc    = v => v && v.src ? `videos/${v.cat}/${v.src}` : videoPath(v);
+  const mediaSrc = v => v && v.src ? `videos/${v.cat}/${v.src}` : videoPath(v);
 
   /* ---- Autoplay items: compilations / highlight reels that loop muted in the
          card itself (not just on hover). Set `autoplay: true` on the entry. ---- */
@@ -39,12 +39,12 @@
   /* Pause autoplay cards when they scroll out of view (perf + battery). */
   const autoplayObserver = ("IntersectionObserver" in window)
     ? new IntersectionObserver((entries) => {
-        entries.forEach(en => {
-          const vid = en.target;
-          if (en.isIntersecting) { const p = vid.play(); if (p) p.catch(() => {}); }
-          else vid.pause();
-        });
-      }, { threshold: 0.2 })
+      entries.forEach(en => {
+        const vid = en.target;
+        if (en.isIntersecting) { const p = vid.play(); if (p) p.catch(() => { }); }
+        else vid.pause();
+      });
+    }, { threshold: 0.2 })
     : null;
 
   /* ---- tiny DOM helper ---- */
@@ -63,7 +63,7 @@
     probe.muted = true; probe.playsInline = true; probe.preload = "auto";
     probe.crossOrigin = "anonymous";
     let done = false;
-    const cleanup = () => { try { probe.removeAttribute("src"); probe.load(); } catch (e) {} };
+    const cleanup = () => { try { probe.removeAttribute("src"); probe.load(); } catch (e) { } };
     const grab = () => {
       if (done) return; done = true;
       try {
@@ -119,7 +119,7 @@
       img.loading = "lazy";
       img.alt = v.title;
       media.insertBefore(img, ph.nextSibling);
-      
+
       if (isImg) {
         // Image/GIF item: show the file itself; no first-frame fallback.
         img.onerror = () => { img.style.display = "none"; };
@@ -130,19 +130,19 @@
         img.onerror = () => {
           const bThumb = bunnyThumb(v);
           const bMp4 = v.bunny ? `https://${BUNNY_CDN}/${getBunnyId(v.bunny)}/play_720p.mp4` : mediaSrc(v);
-          
+
           if (bThumb) {
             img.onerror = () => {
               img.style.display = "none";
-              captureFirstFrame(bMp4, (url) => { 
-                img.onerror = null; img.style.display = ""; img.src = url; 
+              captureFirstFrame(bMp4, (url) => {
+                img.onerror = null; img.style.display = ""; img.src = url;
               });
             };
             img.src = bThumb;
           } else {
             img.style.display = "none";
-            captureFirstFrame(bMp4, (url) => { 
-              img.onerror = null; img.style.display = ""; img.src = url; 
+            captureFirstFrame(bMp4, (url) => {
+              img.onerror = null; img.style.display = ""; img.src = url;
             });
           }
         };
@@ -158,7 +158,7 @@
     if (READY && isAutoplayItem(v)) {
       media.appendChild(el("span", "vcard__live", "● LIVE"));
       const bPrev = bunnyPreview(v);
-      
+
       const avid = el("video", "vid");
       avid.muted = true; avid.loop = true; avid.playsInline = true; avid.preload = "auto";
       avid.autoplay = true; avid.setAttribute("muted", "");
@@ -173,7 +173,7 @@
       });
       avid.src = bPrev || mediaSrc(v);
       media.appendChild(avid);
-      const p = avid.play(); if (p) p.catch(() => {});
+      const p = avid.play(); if (p) p.catch(() => { });
       if (autoplayObserver) autoplayObserver.observe(avid);
     }
 
@@ -205,10 +205,10 @@
         } else {
           previewEl.classList.add("is-playing");
         }
-        const p = previewEl && previewEl.play(); if (p) p.catch(() => {});
+        const p = previewEl && previewEl.play(); if (p) p.catch(() => { });
       });
       card.addEventListener("mouseleave", () => {
-        if (previewEl) { 
+        if (previewEl) {
           previewEl.pause();
           previewEl.classList.remove("is-playing");
         }
@@ -231,42 +231,42 @@
   function renderHeroCarousel() {
     const track = document.getElementById("hero-carousel-track");
     if (!track) return;
-    
+
     // 5 vertical videos arbitrarily chosen
-    const carouselIds = ["ent_11", "edu_1", "ent_6", "ent_20", "ent_24"];
+    const carouselIds = ["ent_11", "ed_27", "ent_6", "ent_20", "ent_24"];
     const videos = carouselIds.map(id => byFile[id]).filter(Boolean);
     if (!videos.length) return;
 
     const group1 = el("div", "hero-carousel__group");
     const group2 = el("div", "hero-carousel__group");
-    
+
     videos.forEach(v => {
       const makeItem = () => {
         const item = el("div", "hero-carousel__item");
         const bPrev = bunnyPreview(v);
         const vsrc = bPrev || mediaSrc(v);
-        
+
         const vid = el("video");
         vid.muted = true; vid.loop = true; vid.playsInline = true; vid.autoplay = true;
         vid.setAttribute("muted", "");
         vid.preload = "auto";
         vid.poster = posterPath(v);
         vid.src = vsrc;
-        
+
         vid.addEventListener("error", () => {
           if (bPrev && vid.src.includes("720p")) {
             vid.src = `https://${BUNNY_CDN}/${getBunnyId(v.bunny)}/play_480p.mp4`;
           }
         });
-        
+
         item.appendChild(vid);
         return item;
       };
-      
+
       group1.appendChild(makeItem());
       group2.appendChild(makeItem());
     });
-    
+
     track.appendChild(group1);
     track.appendChild(group2);
   }
@@ -473,7 +473,7 @@
     document.querySelectorAll(".reel").forEach(reel => {
       let path = reel.dataset.reel; // e.g. "showreel/reel_main"
       const mode = reel.dataset.mode;
-      
+
       // Update path to the actual showreel if one exists
       if (mode === "full" && hasShowreel) {
         path = `showreel/${showreels[0].file}`;
@@ -491,7 +491,7 @@
         vid.addEventListener("error", () => vid.remove());
         vid.src = src;
         ph.appendChild(vid);
-        const p = vid.play(); if (p) p.catch(() => {});
+        const p = vid.play(); if (p) p.catch(() => { });
         return vid;
       };
 
@@ -507,7 +507,7 @@
           if (soundBtn) soundBtn.remove();
           if (playBtn) playBtn.remove();
           if (tag) tag.textContent = "SHOWREEL · IMAGE";
-          
+
           const grain = ph.querySelector(".ph__grain");
           if (grain) grain.remove();
 
@@ -517,14 +517,14 @@
             img.style.width = "100%";
             img.style.height = "auto";
             img.style.display = "block";
-            
+
             img.onload = () => {
               ph.appendChild(img);
               ph.style.background = "none";
               ph.classList.remove("ph--16x9");
               reel.style.boxShadow = "none";
             };
-            img.onerror = () => {};
+            img.onerror = () => { };
             img.src = "videos/" + file;
             reel.style.cursor = "zoom-in";
             ph.addEventListener("click", () =>
@@ -542,7 +542,7 @@
             vid.addEventListener("error", () => vid.remove());
             vid.src = vsrc;
             ph.appendChild(vid);
-            const p = vid.play(); if (p) p.catch(() => {});
+            const p = vid.play(); if (p) p.catch(() => { });
           }
           if (soundBtn) soundBtn.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -614,7 +614,7 @@
         img.loading = "lazy";
         img.alt = r.name || "";
         img.onload = () => { avatar.style.background = "none"; avatar.appendChild(img); };
-        img.onerror = () => {};
+        img.onerror = () => { };
         img.src = `reviews/${r.avatar}`;
       }
       cap.appendChild(avatar);
@@ -739,7 +739,7 @@
   function wireThemeToggle() {
     const btn = document.getElementById("theme-toggle");
     if (!btn) return;
-    
+
     btn.addEventListener("click", () => {
       const current = document.documentElement.getAttribute("data-theme");
       const next = current === "dark" ? "light" : "dark";
