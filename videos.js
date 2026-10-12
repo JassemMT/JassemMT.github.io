@@ -52,12 +52,13 @@ const VIDEOS = [
   { cat: "educational", file: "ent_25", title: "VRSS - Mental_4", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/f28e68d2-7c3b-42b9-a2ed-3d417865eb02" },
   { cat: "educational", file: "ent_26", title: "VRSS - February-March", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/d27d688b-9beb-4a41-a4c3-49ad5e2f7d17" },
   { cat: "educational", file: "ed_27", title: "VRSS - More Time", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/1c24e9cd-5a03-4bd6-8669-b414a0b2e3e3", autoplay: true },
+  { cat: "corporate", file: "showreel_v1", title: "Showreel", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/af5f5dab-9fd8-4252-9f0b-ee669342edba", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/af5f5dab-9fd8-4252-9f0b-ee669342edba/thumbnail.jpg", horizontal: true },
 ];
 
 /* HIGHLIGHTED WORK — bento: 1 big 16:9 + up to 5 verticals (first 2 top-right, next 3 bottom). */
 const FEATURED_LAYOUT = {
-  bigCard: "",
-  verticalCards: ["edu_6", "ent_9", "ed_27", "ent_11", "edu_1"],
+  bigCard: "showreel_v1",
+  verticalCards: ["ed_27", "ent_11", "edu_1", "ent_9", "edu_6"],
 };
 
 /* CASE STUDIES — ordered file ids per section (data-case="<key>" in index.html).

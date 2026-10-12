@@ -216,7 +216,7 @@
     }
 
     // click / keyboard → modal
-    const open = () => openModal(v);
+    const open = () => openModal(v, variant);
     card.addEventListener("click", open);
     card.addEventListener("keydown", e => {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
@@ -360,8 +360,16 @@
   const stage = document.getElementById("modal-stage");
   let lastFocus = null;
 
-  function openModal(v) {
-    const vertical = !v.horizontal;
+  function isHorizontalVideo(v, variant) {
+    if (variant === "h") return true;
+    if (variant === "v") return false;
+    if (v && v.horizontal != null) return !!v.horizontal;
+    if (v && (v.file === "showreel_v1" || v.cat === "showreel" || (v.title && /showreel/i.test(v.title)))) return true;
+    return false;
+  }
+
+  function openModal(v, variant) {
+    const vertical = !isHorizontalVideo(v, variant);
     if (v.bunny) {
       openMediaModal({
         bunny: v.bunny, vertical,
@@ -567,8 +575,8 @@
   }
 
   function openReelModal(path) {
-    const v = { cat: path.split("/")[0], file: path.split("/")[1], title: "Showreel 2026", client: "Jassem", instagram: "" };
-    openModal(v);
+    const v = { cat: path.split("/")[0], file: path.split("/")[1], title: "Showreel 2026", client: "Jassem", instagram: "", horizontal: true };
+    openModal(v, "h");
   }
 
   /* ========================================================================

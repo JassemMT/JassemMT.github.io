@@ -519,7 +519,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .modal { position: fixed; inset: 0; z-index: 100; display: none; }
 .modal.is-open { display: grid; place-items: center; }
 .modal__backdrop { position: absolute; inset: 0; background: rgba(10,11,13,.78); backdrop-filter: blur(6px); animation: fade .3s var(--ease); }
-.modal__dialog { position: relative; z-index: 1; width: min(92vw, 1040px); animation: pop .35s var(--ease); }
+.modal__dialog { position: relative; z-index: 1; width: min(92vw, 1040px, calc((90vh - 100px) * 16 / 9)); animation: pop .35s var(--ease); }
 /* Vertical (9:16) videos: shrink the dialog so the content fills the viewport height
    without leaving dead space on the sides. */
 .modal__dialog--vertical { width: min(92vw, calc((90vh - 100px) * 9 / 16)); }
