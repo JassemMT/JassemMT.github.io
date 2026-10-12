@@ -52,13 +52,16 @@ const VIDEOS = [
   { cat: "educational", file: "ent_25", title: "VRSS - Mental_4", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/f28e68d2-7c3b-42b9-a2ed-3d417865eb02" },
   { cat: "educational", file: "ent_26", title: "VRSS - February-March", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/d27d688b-9beb-4a41-a4c3-49ad5e2f7d17" },
   { cat: "educational", file: "ed_27", title: "VRSS - More Time", client: "VRSS", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/1c24e9cd-5a03-4bd6-8669-b414a0b2e3e3", autoplay: true },
+  { cat: "educational", file: "ed_30", title: "Biais cognitif", client: "Humain Rapide", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/4a455d76-ff0b-478c-a949-11c9d29d0642", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/4a455d76-ff0b-478c-a949-11c9d29d0642/thumbnail.jpg", autoplay: true },
+  { cat: "educational", file: "ed_31", title: "Future Design", client: "Humain Rapide", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/62541cb0-0d66-43ef-8c47-00515a768d7b", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/62541cb0-0d66-43ef-8c47-00515a768d7b/thumbnail.jpg", autoplay: true },
+  { cat: "educational", file: "ed_32", title: "First principles", client: "Humain Rapide", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/585fa581-5b88-4caf-b0c1-0ada155b3e00", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/585fa581-5b88-4caf-b0c1-0ada155b3e00/thumbnail.jpg", autoplay: true },
   { cat: "corporate", file: "showreel_v1", title: "Showreel", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/af5f5dab-9fd8-4252-9f0b-ee669342edba", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/af5f5dab-9fd8-4252-9f0b-ee669342edba/thumbnail.jpg", horizontal: true },
 ];
 
 /* HIGHLIGHTED WORK — bento: 1 big 16:9 + up to 5 verticals (first 2 top-right, next 3 bottom). */
 const FEATURED_LAYOUT = {
   bigCard: "showreel_v1",
-  verticalCards: ["ed_27", "ent_11", "edu_1", "ent_9", "edu_6"],
+  verticalCards: ["ed_27", "ent_11", "edu_1", "ent_9", "ed_30"],
 };
 
 /* CASE STUDIES — ordered file ids per section (data-case="<key>" in index.html).
@@ -67,6 +70,8 @@ const CASE_STUDIES = {
   vrss: ["ed_27", "edu_2", "edu_1", "edu_27", "edu_3"],
   alex: ["ent_11", "ent_9", "ent_6", "ent_1", "ent_2", "ent_4", "ent_5", "ent_8", "ent_10", "ent_3", "ent_7", "ent_12"],
   scm: ["cor_1:h", "cor_2", "cor_3"],
+  humain: ["ed_30", "ed_31", "ed_32"],
+  humain_rapide: ["ed_30", "ed_31", "ed_32"],
 };
 const VRSS_VIDEOS = CASE_STUDIES.vrss; // legacy alias
 

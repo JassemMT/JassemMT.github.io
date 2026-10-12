@@ -21,6 +21,8 @@
   const BUNNY_CDN = "vz-0cb7ad4b-add.b-cdn.net";
   const getBunnyId = (url) => {
     if (!url) return null;
+    const match = url.match(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i);
+    if (match) return match[0];
     const parts = url.split("?")[0].split("/");
     return parts[parts.length - 1];
   };
@@ -407,9 +409,11 @@
 
     if (bunny) {
       // Bunny Stream embed — remote, so it plays regardless of MEDIA_READY.
-      const sep = bunny.includes("?") ? "&" : "?";
+      const bId = getBunnyId(bunny);
+      const embedSrc = bunny.includes("player.mediadelivery.net") ? bunny : `https://player.mediadelivery.net/play/680325/${bId}`;
+      const sep = embedSrc.includes("?") ? "&" : "?";
       const iframe = document.createElement("iframe");
-      iframe.src = bunny + sep + "autoplay=true";
+      iframe.src = embedSrc + sep + "autoplay=true";
       iframe.loading = "lazy";
       iframe.allow = "accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;";
       iframe.allowFullscreen = true;

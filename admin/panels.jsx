@@ -126,12 +126,13 @@
     vrss: { name: "VRSS Fightgear", note: "Three vertical cards beside the case copy.", orient: false },
     alex: { name: "Alex", note: "A gallery of up to ~8 vertical cards.", orient: false },
     scm: { name: "SCM", note: "Mix orientations — typically 1 horizontal + 2 vertical. Toggle V/H per item.", orient: true },
+    humain: { name: "Humain Rapide", note: "Three vertical educational cards.", orient: false },
   };
 
   function CasesPanel({ cases, videos, byFile, onChange }) {
     return (
       <div>
-        {["vrss", "alex", "scm"].map(key => {
+        {["vrss", "alex", "scm", "humain"].map(key => {
           const m = CASE_META[key];
           return (
             <div className="panel" key={key}>
