@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
   <meta charset="UTF-8" />
@@ -20,7 +20,9 @@
     document.documentElement.classList.add('js');
     (function () {
       var stored = localStorage.getItem('theme');
-      if (stored === 'dark') {
+      if (stored === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else {
         document.documentElement.setAttribute('data-theme', 'dark');
       }
     })();
