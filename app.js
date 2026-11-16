@@ -163,7 +163,10 @@
 
       const avid = el("video", "vid");
       avid.muted = true; avid.loop = true; avid.playsInline = true; avid.preload = "auto";
-      avid.autoplay = true; avid.setAttribute("muted", "");
+      avid.autoplay = true;
+      avid.setAttribute("muted", "");
+      avid.setAttribute("playsinline", "");
+      avid.setAttribute("webkit-playsinline", "");
       avid.poster = posterPath(v);
       avid.addEventListener("playing", () => avid.classList.add("is-playing"));
       avid.addEventListener("error", () => {
@@ -194,6 +197,9 @@
         if (!previewEl) {
           previewEl = el("video", "vid");
           previewEl.muted = true; previewEl.loop = true; previewEl.playsInline = true; previewEl.preload = "auto";
+          previewEl.setAttribute("muted", "");
+          previewEl.setAttribute("playsinline", "");
+          previewEl.setAttribute("webkit-playsinline", "");
           previewEl.addEventListener("playing", () => previewEl.classList.add("is-playing"));
           previewEl.addEventListener("error", () => {
             if (bPrev && previewEl.src.includes("720p")) {
@@ -251,6 +257,8 @@
         const vid = el("video");
         vid.muted = true; vid.loop = true; vid.playsInline = true; vid.autoplay = true;
         vid.setAttribute("muted", "");
+        vid.setAttribute("playsinline", "");
+        vid.setAttribute("webkit-playsinline", "");
         vid.preload = "auto";
         vid.poster = posterPath(v);
         vid.src = vsrc;
@@ -431,6 +439,8 @@
     } else {
       const vid = el("video");
       vid.controls = true; vid.autoplay = true; vid.playsInline = true; vid.preload = "auto";
+      vid.setAttribute("playsinline", "");
+      vid.setAttribute("webkit-playsinline", "");
       if (poster) vid.poster = poster;
       let fellBack = false;
       vid.addEventListener("error", () => { if (!fellBack) { fellBack = true; showPlaceholder(); } });
