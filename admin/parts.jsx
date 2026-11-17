@@ -250,6 +250,10 @@ function VideoEditor({ draft, clients, allFiles, thumb, onThumb, onChange, onTes
                 <div className="switch__txt"><b>Autoplay in card</b><small>Loops muted in the grid (compilations / highlight reels). Adds a ● LIVE marker.</small></div>
                 <Toggle on={!!v.autoplay} onChange={on => onChange({ autoplay: on })} />
               </div>
+              <div className="switch">
+                <div className="switch__txt"><b>Horizontal (16:9)</b><small>Render as widescreen card and lightbox player instead of vertical 9:16.</small></div>
+                <Toggle on={!!v.horizontal} onChange={on => onChange({ horizontal: on })} />
+              </div>
             </React.Fragment>
           ) : (
             <div className="fld">

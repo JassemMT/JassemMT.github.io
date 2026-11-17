@@ -6,7 +6,7 @@ const { CATS, CAT_LABEL, isImageSrc, cls } = window.AdminConst;
 const { Ic, VideoCard, VideoEditor, MediaTest, FeaturedPanel, CasesPanel, HeroPanel } = window;
 
 const DRAFT_KEY = "jassem_video_admin_v1";
-const KNOWN_CLIENTS = ["VRSS", "Alex", "SCM", "Studio Form", "Creator", "Brand", "Jassem"];
+const KNOWN_CLIENTS = ["VRSS", "Alex", "SCM", "Studio Form", "Creator", "Brand", "Jassem", "Tadwin"];
 
 /* ---------- load baseline from videos.js ---------- */
 function readBaseline() {
@@ -15,6 +15,7 @@ function readBaseline() {
     videos: (D.VIDEOS || []).map(v => ({
       cat: v.cat, file: v.file, title: v.title || "", client: v.client || "",
       instagram: v.instagram || "", bunny: v.bunny || "", src: v.src || "", customThumb: v.customThumb || "", autoplay: !!v.autoplay,
+      horizontal: !!v.horizontal,
     })),
     featured: {
       bigCard: (D.FEATURED_LAYOUT || {}).bigCard || "",
@@ -106,7 +107,7 @@ function nextFileId(cat, videos) {
 function App() {
   const baseline = useRef(readBaseline());
   const [state, setState] = useState(() => {
-    try { const d = localStorage.getItem(DRAFT_KEY); if (d) return JSON.parse(d); } catch (e) {}
+    try { const d = localStorage.getItem(DRAFT_KEY); if (d) return JSON.parse(d); } catch (e) { }
     return readBaseline();
   });
   const [hasDraft, setHasDraft] = useState(() => {
@@ -146,7 +147,7 @@ function App() {
 
   /* persist */
   useEffect(() => {
-    try { localStorage.setItem(DRAFT_KEY, JSON.stringify(state)); setHasDraft(true); } catch (e) {}
+    try { localStorage.setItem(DRAFT_KEY, JSON.stringify(state)); setHasDraft(true); } catch (e) { }
   }, [state]);
 
   const dirty = useMemo(() => JSON.stringify(state) !== JSON.stringify(baseline.current), [state]);
@@ -285,7 +286,7 @@ function App() {
   const doCopy = async () => { try { await navigator.clipboard.writeText(code); flash("Copied to clipboard"); } catch (e) { flash("Copy failed — select & copy manually"); } };
   const revert = () => {
     if (!window.confirm("Discard all draft changes and reload the data from videos.js?")) return;
-    try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
+    try { localStorage.removeItem(DRAFT_KEY); } catch (e) { }
     setState(readBaseline()); setHasDraft(false); setThumbs({}); flash("Reverted to file");
   };
 
