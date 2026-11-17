@@ -14,7 +14,7 @@
     const items = tokens.map(parseTok);
     const move = (i, d) => {
       const j = i + d; if (j < 0 || j >= items.length) return;
-      const next = items.slice(); [next[i], next[j]] = [next[j], next[i]];
+      const next = items.slice();[next[i], next[j]] = [next[j], next[i]];
       onChange(next.map(x => mkTok(x.id, x.o)));
     };
     const remove = i => onChange(items.filter((_, k) => k !== i).map(x => mkTok(x.id, x.o)));
@@ -68,6 +68,7 @@
   function BentoPreview({ featured, byFile }) {
     const big = byFile[featured.bigCard];
     const verts = (featured.verticalCards || []).map(f => byFile[f]);
+    const big2 = byFile[featured.bottomBigCard || featured.bigCard2];
     const Slot = ({ v, h, label }) => (
       <div className={cls("pslot", h && "pslot--h")}>
         {v ? <Thumb v={v} variant={h ? "h" : "v"} /> : <span>{label}</span>}
@@ -86,6 +87,13 @@
           <Slot v={verts[3]} label="vert 4" />
           <Slot v={verts[4]} label="vert 5" />
         </div>
+        {(big2 || verts[5] || verts[6]) && (
+          <div className="bento-prev__row3">
+            <Slot v={verts[5]} label="vert 6" />
+            <Slot v={verts[6]} label="vert 7" />
+            <Slot v={big2} h label="big 16:9 (bottom)" />
+          </div>
+        )}
       </div>
     );
   }
@@ -97,21 +105,28 @@
           <div>
             <span className="eyebrow">Homepage · bento</span>
             <h2>Highlighted work</h2>
-            <p>One large 16:9 card (left) plus up to five 9:16 verticals: the first two sit top-right, the next three fill the bottom row.</p>
+            <p>Row 1: one large 16:9 card (left) + two 9:16 verticals (right). Row 2: three 9:16 verticals. Row 3: two 9:16 verticals (left) + one large 16:9 card (right).</p>
           </div>
         </div>
         <div className="grid2">
           <div>
             <div className="fld" style={{ marginBottom: 16 }}>
-              <label>Big card (16:9 — showreel / VSL)</label>
+              <label>Top Big card (16:9 — showreel / VSL)</label>
               <select className="selectbox" value={featured.bigCard || ""} onChange={e => onChange({ ...featured, bigCard: e.target.value })} style={{ width: "100%" }}>
                 <option value="">— none —</option>
                 {videos.map(v => <option key={v.file} value={v.file}>{(v.title || v.file)} — {v.file}</option>)}
               </select>
             </div>
-            <label className="fld" style={{ marginBottom: 8 }}><span style={{ fontSize: ".74rem", fontWeight: 600, color: "var(--muted)" }}>Vertical cards (max 5)</span></label>
-            <SlotList tokens={featured.verticalCards || []} byFile={byFile} max={5}
+            <label className="fld" style={{ marginBottom: 8 }}><span style={{ fontSize: ".74rem", fontWeight: 600, color: "var(--muted)" }}>Vertical cards (up to 7)</span></label>
+            <SlotList tokens={featured.verticalCards || []} byFile={byFile} max={7}
               onChange={list => onChange({ ...featured, verticalCards: list })} emptyHint="No vertical cards yet." />
+            <div className="fld" style={{ marginTop: 16 }}>
+              <label>Bottom Big card (16:9 — SaaS explainer / showcase)</label>
+              <select className="selectbox" value={featured.bottomBigCard || ""} onChange={e => onChange({ ...featured, bottomBigCard: e.target.value })} style={{ width: "100%" }}>
+                <option value="">— none —</option>
+                {videos.map(v => <option key={v.file} value={v.file}>{(v.title || v.file)} — {v.file}</option>)}
+              </select>
+            </div>
           </div>
           <div>
             <span className="eyebrow" style={{ display: "block", marginBottom: 8 }}>Live preview</span>

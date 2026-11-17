@@ -283,8 +283,9 @@
 
   /* ========================================================================
      HIGHLIGHTED WORK (bento)
-     Top band : big 16:9 horizontal VSL (left) + 1 vertical (right)
-     Bottom band : the remaining vertical cards, equal columns
+     Row 1 (top)    : big 16:9 horizontal (left) + 2 verticals (right)
+     Row 2 (middle) : 3 vertical cards, equal columns
+     Row 3 (bottom) : 2 verticals (left) + big 16:9 horizontal (right)
      ======================================================================== */
   function renderBento() {
     const root = document.getElementById("bento");
@@ -293,11 +294,11 @@
     const big = byFile[L.bigCard];
     const verticals = (L.verticalCards || []).map(f => byFile[f]).filter(Boolean);
 
-    if ((L.verticalCards || []).length > 5) {
-      console.warn(`[bento] ${L.verticalCards.length} verticalCards provided; only the first 5 fit the layout (2 top-right + 3 bottom) — extras ignored.`);
+    if ((L.verticalCards || []).length > 7) {
+      console.warn(`[bento] ${L.verticalCards.length} verticalCards provided; only the first 7 fit the 3-row layout — extras ignored.`);
     }
 
-    // TOP: big 16:9 horizontal (left) + two vertical cards (right, fill the space)
+    // ROW 1: big 16:9 horizontal (left) + two vertical cards (right)
     const top = el("div", "bento__top");
     if (big) top.appendChild(makeCard(big, "h"));
     const topRight = el("div", "bento__topright");
@@ -305,10 +306,21 @@
     top.appendChild(topRight);
     root.appendChild(top);
 
-    // BOTTOM: the remaining vertical cards (up to 3)
+    // ROW 2: three vertical cards (middle)
     const bottom = el("div", "bento__bottom");
     verticals.slice(2, 5).forEach(v => bottom.appendChild(makeCard(v, "v")));
     root.appendChild(bottom);
+
+    // ROW 3: two vertical cards (left) + big 16:9 horizontal (right)
+    const bottomBig = byFile[L.bottomBigCard || L.bigCard2] || byFile["cor_4"];
+    if (bottomBig || verticals.length > 5) {
+      const row3 = el("div", "bento__row3");
+      const row3Left = el("div", "bento__row3left");
+      verticals.slice(5, 7).forEach(v => row3Left.appendChild(makeCard(v, "v")));
+      row3.appendChild(row3Left);
+      if (bottomBig) row3.appendChild(makeCard(bottomBig, "h"));
+      root.appendChild(row3);
+    }
   }
 
   /* ========================================================================

@@ -20,6 +20,7 @@ function readBaseline() {
     featured: {
       bigCard: (D.FEATURED_LAYOUT || {}).bigCard || "",
       verticalCards: ((D.FEATURED_LAYOUT || {}).verticalCards || []).slice(),
+      bottomBigCard: (D.FEATURED_LAYOUT || {}).bottomBigCard || (D.FEATURED_LAYOUT || {}).bigCard2 || "",
     },
     cases: {
       vrss: ((D.CASE_STUDIES || {}).vrss || D.VRSS_VIDEOS || []).slice(),
@@ -65,10 +66,11 @@ const VIDEOS = [
 ${vlines}
 ];
 
-/* HIGHLIGHTED WORK — bento: 1 big 16:9 + up to 5 verticals (first 2 top-right, next 3 bottom). */
+/* HIGHLIGHTED WORK — bento: Row 1 (big 16:9 + 2 verticals), Row 2 (3 verticals), Row 3 (2 verticals + big 16:9). */
 const FEATURED_LAYOUT = {
   bigCard: ${q(s.featured.bigCard)},
   verticalCards: ${arr(s.featured.verticalCards || [])},
+  bottomBigCard: ${q(s.featured.bottomBigCard || "")},
 };
 
 /* CASE STUDIES — ordered file ids per section (data-case="<key>" in index.html).
