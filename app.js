@@ -10,7 +10,7 @@
   const DATA = window.PORTFOLIO_DATA || { VIDEOS: [], FEATURED_LAYOUT: {}, VRSS_VIDEOS: [] };
   const READY = !!DATA.MEDIA_READY;   // false → placeholder mode, no media requests
   const byFile = Object.fromEntries(DATA.VIDEOS.map(v => [v.file, v]));
-  const CAT_LABEL = { entertainment: "Entertainment", educational: "Educational", corporate: "Corporate", showreel: "Showreel" };
+  const CAT_LABEL = { entertainment: "Lifestyle", educational: "Educational", corporate: "Corporate", showreel: "Showreel" };
   const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   /* ---- path conventions ---- */
@@ -38,16 +38,27 @@
          card itself (not just on hover). Set `autoplay: true` on the entry. ---- */
   const isAutoplayItem = v => !!(v && v.autoplay) && !isImageItem(v);
 
-  /* Pause autoplay cards when they scroll out of view (perf + battery). */
+  /* Lazy autoplay: a muted loop only downloads (data-src → src) the first time
+     it comes near the viewport, and pauses when it leaves (perf + battery + data). */
   const autoplayObserver = ("IntersectionObserver" in window)
     ? new IntersectionObserver((entries) => {
       entries.forEach(en => {
         const vid = en.target;
-        if (en.isIntersecting) { const p = vid.play(); if (p) p.catch(() => { }); }
+        if (en.isIntersecting) {
+          if (!vid.getAttribute("src") && vid.dataset.src) vid.src = vid.dataset.src;
+          const p = vid.play(); if (p) p.catch(() => { });
+        }
         else vid.pause();
       });
-    }, { threshold: 0.2 })
+    }, { threshold: 0.01, rootMargin: "200px 0px" })
     : null;
+
+  /* Attach a lazy source: deferred when IntersectionObserver exists, immediate otherwise. */
+  function lazySource(vid, src) {
+    vid.preload = "none";
+    if (autoplayObserver) { vid.dataset.src = src; autoplayObserver.observe(vid); }
+    else { vid.src = src; const p = vid.play(); if (p) p.catch(() => { }); }
+  }
 
   /* ---- tiny DOM helper ---- */
   function el(tag, cls, html) {
@@ -162,12 +173,11 @@
       const bPrev = bunnyPreview(v);
 
       const avid = el("video", "vid");
-      avid.muted = true; avid.loop = true; avid.playsInline = true; avid.preload = "auto";
-      avid.autoplay = true;
+      avid.muted = true; avid.loop = true; avid.playsInline = true;
       avid.setAttribute("muted", "");
       avid.setAttribute("playsinline", "");
       avid.setAttribute("webkit-playsinline", "");
-      avid.poster = posterPath(v);
+      avid.poster = v.customThumb || bunnyThumb(v) || posterPath(v);
       avid.addEventListener("playing", () => avid.classList.add("is-playing"));
       avid.addEventListener("error", () => {
         if (bPrev && avid.src.includes("720p")) {
@@ -176,10 +186,8 @@
           avid.remove();
         }
       });
-      avid.src = bPrev || mediaSrc(v);
       media.appendChild(avid);
-      const p = avid.play(); if (p) p.catch(() => { });
-      if (autoplayObserver) autoplayObserver.observe(avid);
+      lazySource(avid, bPrev || mediaSrc(v));
     }
 
     // text strip (vertical cards keep a little room for it — see CSS)
@@ -240,8 +248,8 @@
     const track = document.getElementById("hero-carousel-track");
     if (!track) return;
 
-    // 5 vertical videos arbitrarily chosen
-    const carouselIds = ["ent_11", "ed_27", "ent_6", "ent_20", "ent_24"];
+    // 5 vertical videos — target niche first (educational / authority content)
+    const carouselIds = ["ed_27", "ed_30", "edu_27", "ent_20", "ent_24"];
     const videos = carouselIds.map(id => byFile[id]).filter(Boolean);
     if (!videos.length) return;
 
@@ -251,25 +259,25 @@
     videos.forEach(v => {
       const makeItem = () => {
         const item = el("div", "hero-carousel__item");
-        const bPrev = bunnyPreview(v);
+        // Small cards → 480p is plenty (half the bytes of 720p).
+        const bPrev = v.bunny ? `https://${BUNNY_CDN}/${getBunnyId(v.bunny)}/play_480p.mp4` : null;
         const vsrc = bPrev || mediaSrc(v);
 
         const vid = el("video");
-        vid.muted = true; vid.loop = true; vid.playsInline = true; vid.autoplay = true;
+        vid.muted = true; vid.loop = true; vid.playsInline = true;
         vid.setAttribute("muted", "");
         vid.setAttribute("playsinline", "");
         vid.setAttribute("webkit-playsinline", "");
-        vid.preload = "auto";
-        vid.poster = posterPath(v);
-        vid.src = vsrc;
+        vid.poster = v.customThumb || bunnyThumb(v) || posterPath(v);
 
         vid.addEventListener("error", () => {
-          if (bPrev && vid.src.includes("720p")) {
-            vid.src = `https://${BUNNY_CDN}/${getBunnyId(v.bunny)}/play_480p.mp4`;
+          if (bPrev && vid.src.includes("480p")) {
+            vid.src = `https://${BUNNY_CDN}/${getBunnyId(v.bunny)}/play_720p.mp4`;
           }
         });
 
         item.appendChild(vid);
+        lazySource(vid, vsrc);
         return item;
       };
 

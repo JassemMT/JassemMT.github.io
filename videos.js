@@ -25,7 +25,7 @@ const VIDEOS = [
   { cat: "corporate", file: "cor_1", title: "SCM - Product Educationnal presentation", client: "SCM", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/abd5fa04-ef8c-402c-bd05-cd378fb3869f" },
   { cat: "corporate", file: "cor_2", title: "SCM - Educationnal videos", client: "SCM", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/678759d3-642a-4dee-b8b9-77b8e34f616e" },
   { cat: "corporate", file: "cor_3", title: "SCM - Educational Video 2", client: "SCM", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/8bc0a935-eecd-417f-ae6f-c6c8e3584de5" },
-  { cat: "corporate", file: "cor_4", title: "Tadwin - SaaS Explainer", client: "Tadwin", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/2f10d735-51d4-4e09-b2af-227d790117a6", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/2f10d735-51d4-4e09-b2af-227d790117a6/thumbnail.jpg", horizontal: true },
+  { cat: "corporate", file: "cor_4", title: "Tadwin - SaaS Explainer", client: "Tadwin", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/85adcd16-f36b-40d4-a335-534989f0ca9b", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/85adcd16-f36b-40d4-a335-534989f0ca9b/thumbnail_6450d69f.jpg", horizontal: true },
   { cat: "entertainment", file: "ent_1", title: "Alex - Air Max", client: "Alex", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/78512388-bcf6-48f5-9714-fde95dfeef97", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/78512388-bcf6-48f5-9714-fde95dfeef97/thumbnail_001e6958.jpg" },
   { cat: "entertainment", file: "ent_2", title: "Alex - Safari Jacket", client: "", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/9bd90e09-6682-4009-911c-0c1081d791a9", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/9bd90e09-6682-4009-911c-0c1081d791a9/thumbnail_83d55439.jpg" },
   { cat: "entertainment", file: "ent_3", title: "Alex - Sebago", client: "Alex", instagram: "", bunny: "https://player.mediadelivery.net/play/680325/74476d13-2c6a-45fc-9f32-75f3c32187e6", customThumb: "https://vz-0cb7ad4b-add.b-cdn.net/74476d13-2c6a-45fc-9f32-75f3c32187e6/thumbnail_42105b81.jpg" },
@@ -62,7 +62,7 @@ const VIDEOS = [
 /* HIGHLIGHTED WORK — bento: Row 1 (big 16:9 + 2 verticals), Row 2 (3 verticals), Row 3 (2 verticals + big 16:9). */
 const FEATURED_LAYOUT = {
   bigCard: "showreel_v1",
-  verticalCards: ["ed_27", "ent_11", "edu_1", "ent_9", "ed_30", "ent_6", "ed_31"],
+  verticalCards: ["ed_27", "edu_3", "edu_1", "ed_30", "edu_27", "ent_9", "ed_31"],
   bottomBigCard: "cor_4",
 };
 
@@ -73,6 +73,7 @@ const CASE_STUDIES = {
   alex: ["ent_11", "ent_9", "ent_6", "ent_1", "ent_2", "ent_4", "ent_5", "ent_8", "ent_10", "ent_3", "ent_7", "ent_12"],
   scm: ["cor_1:h", "cor_2", "cor_3"],
   humain: ["ed_30", "ed_32", "ed_31"],
+  tadwin: ["cor_4:h"],
 };
 const VRSS_VIDEOS = CASE_STUDIES.vrss; // legacy alias
 
