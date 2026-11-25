@@ -62,7 +62,7 @@ const VIDEOS = [
 /* HIGHLIGHTED WORK — bento: Row 1 (big 16:9 + 2 verticals), Row 2 (3 verticals), Row 3 (2 verticals + big 16:9). */
 const FEATURED_LAYOUT = {
   bigCard: "showreel_v1",
-  verticalCards: ["ed_27", "edu_3", "edu_1", "ed_30", "edu_27", "ent_9", "ed_31"],
+  verticalCards: ["ed_27", "edu_1", "ent_9", "ed_30", "ed_32", "ed_31", "edu_6"],
   bottomBigCard: "cor_4",
 };
 
